@@ -13,7 +13,7 @@ import type {
 } from 'src/proto/user';
 
 @Injectable()
-export class UserService {
+export class UserGrpcService {
   logger: Logger;
   constructor(
     private readonly passwordService: PasswordService,
@@ -22,7 +22,7 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {
-    this.logger = new Logger(UserService.name);
+    this.logger = new Logger(UserGrpcService.name);
   }
 
   public async createUser({
@@ -110,13 +110,13 @@ export class UserService {
       .getOne();
   }
 
-  // public async findUserSettingsById(id: string) {
-  //   return await this.userRepository
-  //     .createQueryBuilder('user')
-  //     .leftJoinAndSelect('user.userSettings', 'settings')
-  //     .where('user.id = :id', { id })
-  //     .getOneOrFail();
-  // }
+  public async findUserSettingsById(id: string) {
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.userSettings', 'settings')
+      .where('user.id = :id', { id })
+      .getOneOrFail();
+  }
 
   // public async findUserWithPasswordById(id?: string) {
   //   return await this.userRepository

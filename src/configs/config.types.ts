@@ -3,12 +3,16 @@ import { AppConfig } from './app.configs';
 import * as Joi from 'joi';
 import { SessionConfig } from './session.config';
 import { RedisConfig } from 'src/common/redis/config/redis.config';
+import { SmsConfig } from 'src/au/notify/sms/config/sms.configs';
+import { SmtpConfig } from 'src/au/notify/smtp/config/smtp.configs';
 
 export interface ConfigTypes {
   app: AppConfig;
   db: PostgresConfig;
   session: SessionConfig;
   redis: RedisConfig;
+  sms: SmsConfig;
+  smtp: SmtpConfig;
 }
 
 export const configSchema = Joi.object({
@@ -29,4 +33,18 @@ export const configSchema = Joi.object({
   ADMIN_EMAIL: Joi.string().required(),
   ADMIN_PHONE: Joi.string().required(),
   COOKIE_SECRET: Joi.string().required(),
+
+  TWILO_SID: Joi.string().required(),
+  TWILO_TOKEN: Joi.string().required(),
+  TWILO_PHONE: Joi.string().required(),
+  TWILO_WHATSAPP_PHONE: Joi.string().required(),
+  WHATSAPP_PHONE: Joi.string().required(),
+  WHATSAPP_ACCESS_TOKEN: Joi.string().required(),
+  WHATSAPP_PHONE_ID: Joi.string().required(),
+  WHATSAPP_BUSINESS_ID: Joi.string().required(),
+
+  SMTP_HOST: Joi.string().required(),
+  SMTP_PORT: Joi.string().required(),
+  SMTP_FROM: Joi.string().required(),
+  SMTP_USER: Joi.string().required(),
 });

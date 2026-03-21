@@ -5,6 +5,7 @@ import { TypeConfigService } from '../../configs/types.config.service';
 import { GrpcProxyKey, ProxyKey } from './constance';
 import { RedisConfig } from 'src/common/redis/config/redis.config';
 import { join } from 'path';
+import { getGrpcOptions } from 'src/libs/utils/get-proto-files';
 
 @Global()
 @Module({
@@ -36,12 +37,10 @@ import { join } from 'path';
         name: GrpcProxyKey,
         imports: [ConfigModule],
         inject: [ConfigService],
-        useFactory: (configService: TypeConfigService) => ({
+        useFactory: () => ({
           transport: Transport.GRPC,
           options: {
-            package: 'user',
-            protoPath: join(__dirname, '../../../proto/user.proto'),
-            // TODO: dodać do konfigu
+            ...getGrpcOptions(join(__dirname, '../../../proto')),
             url: 'localhost:50051',
             onLoadPackageDefinition: (pkg, server) => {
               // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-member-access

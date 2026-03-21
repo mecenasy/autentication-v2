@@ -1,49 +1,33 @@
-import { Inject, OnModuleInit } from '@nestjs/common';
+import { Inject, Logger, OnModuleInit } from '@nestjs/common';
 import { ICommand } from '@nestjs/cqrs';
-import { type ClientGrpc, ClientProxy } from '@nestjs/microservices';
-import { UserProxyServiceClient } from 'src/proto/user';
-import { GrpcProxyKey, ProxyKey } from '../proxy/constance';
-import { firstValueFrom, lastValueFrom, timeout } from 'rxjs';
-import { RedisData, SaveRedisData } from '../redis/model/redis-data';
-import { RedisEvent } from '../redis/model/redis-event';
+import { type ClientGrpc } from '@nestjs/microservices';
+import { GrpcProxyKey } from '../proxy/constance';
+import { CacheService } from '../cache/cache.service';
+import { EventService } from '../event/event.service';
+import { IBaseHandler } from './base-handler';
 
-export abstract class Handler<T extends ICommand, S> implements OnModuleInit {
-  public gRpcService: UserProxyServiceClient;
+export abstract class Handler<T extends ICommand, R, S extends object>
+  implements IBaseHandler<T, R>, OnModuleInit
+{
+  public gRpcService: S;
+  logger: Logger;
 
-  constructor(
-    @Inject(GrpcProxyKey) public readonly grpcClient: ClientGrpc,
-    @Inject(ProxyKey) public readonly client: ClientProxy,
-  ) {}
-  abstract execute(command: T): Promise<S>;
+  @Inject(GrpcProxyKey)
+  public readonly grpcClient: ClientGrpc;
+
+  @Inject(CacheService)
+  public readonly cache: CacheService;
+
+  @Inject(EventService)
+  public readonly event: EventService;
+
+  constructor(private readonly serviceName: string) {
+    this.logger = new Logger(this.constructor.name);
+  }
 
   onModuleInit() {
-    this.gRpcService =
-      this.grpcClient.getService<UserProxyServiceClient>('UserProxyService');
+    this.gRpcService = this.grpcClient.getService<S>(this.serviceName);
   }
 
-  public async getFromCache<T>(data: RedisData): Promise<T | null> {
-    return await lastValueFrom(
-      this.client.send<T, RedisData>(RedisEvent.Get, data).pipe(timeout(5000)),
-    );
-  }
-
-  public async saveInCache<T>(data: SaveRedisData<T>): Promise<void> {
-    await lastValueFrom(
-      this.client
-        .send<object, SaveRedisData<T>>(RedisEvent.Save, data)
-        .pipe(timeout(5000)),
-    );
-  }
-
-  public async removeFromCache(data: RedisData): Promise<void> {
-    await firstValueFrom(
-      this.client
-        .send<object, RedisData>(RedisEvent.Remove, data)
-        .pipe(timeout(5000)),
-    );
-  }
-
-  public createUserEvent<T>(type: string, user: T) {
-    this.client.emit<object, T>(type, user);
-  }
+  abstract execute(command: T): Promise<R>;
 }

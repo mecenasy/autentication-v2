@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package user;
-import "google/protobuf/empty.proto";
 
 service UserProxyService {
   rpc CreateUser (CreateUserRequest) returns (UserResponse);

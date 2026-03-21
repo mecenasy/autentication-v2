@@ -2,58 +2,58 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateUserType {
-  city: String!
+input CreateSocialUserType {
   email: String!
-  name: String!
-  number: String!
+  provider: String!
+  providerId: String!
+}
+
+input CreateUserType {
+  email: String!
+  password: String!
   phone: String!
-  state: String!
-  street: String!
-  surname: String!
-  zip: String!
+}
+
+type LoginStatusType {
+  status: String!
+  user: UserStatusType
+}
+
+input LoginType {
+  email: String!
+  password: String!
 }
 
 type Mutation {
+  createSocialUser(input: CreateSocialUserType!): UserType!
   createUser(input: CreateUserType!): UserType!
-  deleteUser(email: String!, id: ID!, phone: String!): UserIdentityType!
-  updateUser(input: UpdateUserType!): UserType!
+  loginUser(input: LoginType!): StatusType!
+  verifyMfa(input: VerifyCodeType!): StatusType!
 }
 
 type Query {
-  queryUsers(query: String!): [UserType!]!
-  user(id: ID!): UserType!
-  users: [UserType!]!
+  _ping: Boolean
+  loginStatus: LoginStatusType!
 }
 
-input UpdateUserType {
-  city: String!
-  email: String!
-  id: ID!
-  name: String!
-  number: String!
-  phone: String!
-  state: String!
-  street: String!
-  surname: String!
-  zip: String!
+type StatusType {
+  status: String!
 }
 
-type UserIdentityType {
+type UserStatusType {
+  admin: Boolean!
   email: String!
   id: ID!
-  phone: String!
+  is2faEnabled: Boolean!
+  isAdaptiveLoginEnabled: Boolean!
 }
 
 type UserType {
-  city: String!
   email: String!
   id: ID!
-  name: String!
-  number: String!
-  phone: String!
-  state: String!
-  street: String!
-  surname: String!
-  zip: String!
+}
+
+input VerifyCodeType {
+  code: Float!
+  email: String!
 }

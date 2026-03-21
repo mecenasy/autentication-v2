@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { PostgresModule } from './postgres/postgres.module';
 import { RedisModule } from './redis/redis.module';
 import { HttpModule } from '@nestjs/axios';
@@ -7,13 +7,14 @@ import { ConfigsModule } from 'src/configs/configs.module';
 import { ProxyModule } from './proxy/proxy.module';
 import { SessionModule } from './session/session.module';
 import { GraphQlModule } from './graph-ql/graph-ql.module';
-import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { CacheService } from './cache/cache.service';
+import { EventService } from './event/event.service';
+import { CqrsModule } from '@nestjs/cqrs';
 
+@Global()
 @Module({
   imports: [
-    DevtoolsModule.register({
-      http: process.env.NODE_ENV !== 'production',
-    }),
+    CqrsModule,
     GraphQlModule,
     PostgresModule,
     RedisModule,
@@ -23,5 +24,7 @@ import { DevtoolsModule } from '@nestjs/devtools-integration';
     ProxyModule,
     SessionModule,
   ],
+  providers: [CacheService, EventService],
+  exports: [CacheService, EventService],
 })
 export class CommonModule {}

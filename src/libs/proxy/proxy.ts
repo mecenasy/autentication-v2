@@ -3,6 +3,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { TypeConfigService } from '../../configs/types.config.service';
 import { RedisConfig } from 'src/common/redis/config/redis.config';
 import { join } from 'path';
+import { getGrpcOptions } from '../utils/get-proto-files';
 
 export const initProxy = async (app: INestApplication) => {
   const config = app.get(TypeConfigService);
@@ -24,8 +25,7 @@ export const initProxy = async (app: INestApplication) => {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
-      package: 'user',
-      protoPath: join(__dirname, '../../../proto/user.proto'),
+      ...getGrpcOptions(join(__dirname, '../../../proto')),
       url: 'localhost:50051',
     },
   });
