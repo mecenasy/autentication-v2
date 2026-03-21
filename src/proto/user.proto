@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package user;
+import "google/protobuf/empty.proto";
+
+service UserProxyService {
+  rpc CreateUser (CreateUserRequest) returns (UserResponse);
+  rpc CreateSocialUser (CreateSocialUserRequest) returns (SocialUserResponse);
+  rpc CheckExist(CheckExistRequest) returns (CheckExistResponse);
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string phone = 2;
+  string password = 3;
+}
+
+message CreateSocialUserRequest {
+  string email = 1;
+  string provider = 2;
+  string providerId = 3;
+}
+
+message UserResponse {
+  string id = 1;
+  string email = 2;
+  string phone = 3;
+}
+
+message SocialUserResponse {
+  string id = 1;
+  string email = 2;
+}
+
+message CheckExistRequest {
+  string email = 1;
+}
+
+message CheckExistResponse {
+  bool exist = 1;
+}
