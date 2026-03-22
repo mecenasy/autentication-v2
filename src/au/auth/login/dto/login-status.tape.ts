@@ -23,4 +23,10 @@ export class UserStatusType {
 export class LoginStatusType extends StatusType {
   @Field({ nullable: true })
   user?: UserStatusType;
+
+  @Field({ nullable: true })
+  message?: string;
+
+  @Field({ nullable: true })
+  phoneId?: string;
 }

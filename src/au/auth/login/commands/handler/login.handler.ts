@@ -11,6 +11,7 @@ import { SmsCodeEvent } from '../../../../notify/sms/commands/dto/sms-code.event
 import { AuthStatus } from 'src/au/auth/types/login-status';
 import { MailCodeEvent } from '../../../../notify/smtp/dto/mail-code.event';
 import { StatusType } from '../../dto/status.type';
+import { LoginCache } from 'src/au/auth/types/cache-data';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler extends Handler<
@@ -27,11 +28,15 @@ export class LoginHandler extends Handler<
       this.gRpcService.login({ email, password }),
     );
 
+    if (!user.success) {
+      return { status: AuthStatus.logout, message: user.message };
+    }
+
     const code = this.otpService.generateOtp();
 
-    await this.cache.saveInCache({
+    await this.cache.saveInCache<LoginCache>({
       identifier: email,
-      data: code,
+      data: { code, userId: user.userId ?? '' },
     });
 
     if (user.is2fa) {

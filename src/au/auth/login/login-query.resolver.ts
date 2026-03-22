@@ -1,17 +1,17 @@
-import { Resolver, Context, Query } from '@nestjs/graphql';
-import { CommandBus } from '@nestjs/cqrs';
-import { StatusAuthCommand } from './queries/impl/status-auth.command';
+import { Resolver, Query } from '@nestjs/graphql';
+import { QueryBus } from '@nestjs/cqrs';
+import { StatusAuthQuery } from './queries/impl/status-auth.query';
 import { LoginStatusType } from './dto/login-status.tape';
-import express from 'express';
+import { CurrentUserId } from 'src/common/decorators/current-user-id.decorator';
 
 @Resolver('Login')
 export class LoginQueriesResolver {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(private readonly queryBus: QueryBus) {}
 
   @Query(() => LoginStatusType)
-  async loginStatus(@Context() ctx: express.Response) {
-    return this.commandBus.execute<StatusAuthCommand, LoginStatusType>(
-      new StatusAuthCommand(ctx.req.session.user_id ?? ''),
+  async loginStatus(@CurrentUserId() userId: string) {
+    return this.queryBus.execute<StatusAuthQuery, LoginStatusType>(
+      new StatusAuthQuery(userId),
     );
   }
 }

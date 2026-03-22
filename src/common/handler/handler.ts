@@ -21,12 +21,14 @@ export abstract class Handler<T extends ICommand, R, S extends object>
   @Inject(EventService)
   public readonly event: EventService;
 
-  constructor(private readonly serviceName: string) {
+  constructor(private readonly serviceName?: string) {
     this.logger = new Logger(this.constructor.name);
   }
 
   onModuleInit() {
-    this.gRpcService = this.grpcClient.getService<S>(this.serviceName);
+    if (this.serviceName) {
+      this.gRpcService = this.grpcClient.getService<S>(this.serviceName);
+    }
   }
 
   abstract execute(command: T): Promise<R>;

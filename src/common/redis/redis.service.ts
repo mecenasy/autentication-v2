@@ -24,7 +24,7 @@ export class RedisService {
   public async save<T>({
     data,
     identifier,
-    EX,
+    EX = 300,
     prefix,
   }: SaveRedisData<T>): Promise<void> {
     const key = this.getIdentifier(identifier, prefix);

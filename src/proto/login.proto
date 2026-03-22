@@ -17,6 +17,7 @@ message LoginResponse {
   string message = 2;
   optional string phone = 3;
   optional bool is2fa = 4;
+  optional string userId = 5;
 }
 
 message LoginStatusRequest {

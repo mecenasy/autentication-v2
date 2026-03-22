@@ -5,11 +5,11 @@
 // source: src/proto/user.proto
 
 /* eslint-disable */
-import type { Metadata } from "@grpc/grpc-js";
-import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
-import { Observable } from "rxjs";
+import type { Metadata } from '@grpc/grpc-js';
+import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
-export const protobufPackage = "user";
+export const protobufPackage = 'user';
 
 export interface CreateUserRequest {
   email: string;
@@ -42,14 +42,23 @@ export interface CheckExistResponse {
   exist: boolean;
 }
 
-export const USER_PACKAGE_NAME = "user";
+export const USER_PACKAGE_NAME = 'user';
 
 export interface UserProxyServiceClient {
-  createUser(request: CreateUserRequest, metadata?: Metadata): Observable<UserResponse>;
+  createUser(
+    request: CreateUserRequest,
+    metadata?: Metadata,
+  ): Observable<UserResponse>;
 
-  createSocialUser(request: CreateSocialUserRequest, metadata?: Metadata): Observable<SocialUserResponse>;
+  createSocialUser(
+    request: CreateSocialUserRequest,
+    metadata?: Metadata,
+  ): Observable<SocialUserResponse>;
 
-  checkExist(request: CheckExistRequest, metadata?: Metadata): Observable<CheckExistResponse>;
+  checkExist(
+    request: CheckExistRequest,
+    metadata?: Metadata,
+  ): Observable<CheckExistResponse>;
 }
 
 export interface UserProxyServiceController {
@@ -61,27 +70,51 @@ export interface UserProxyServiceController {
   createSocialUser(
     request: CreateSocialUserRequest,
     metadata?: Metadata,
-  ): Promise<SocialUserResponse> | Observable<SocialUserResponse> | SocialUserResponse;
+  ):
+    | Promise<SocialUserResponse>
+    | Observable<SocialUserResponse>
+    | SocialUserResponse;
 
   checkExist(
     request: CheckExistRequest,
     metadata?: Metadata,
-  ): Promise<CheckExistResponse> | Observable<CheckExistResponse> | CheckExistResponse;
+  ):
+    | Promise<CheckExistResponse>
+    | Observable<CheckExistResponse>
+    | CheckExistResponse;
 }
 
 export function UserProxyServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["createUser", "createSocialUser", "checkExist"];
+    const grpcMethods: string[] = [
+      'createUser',
+      'createSocialUser',
+      'checkExist',
+    ];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("UserProxyService", method)(constructor.prototype[method], method, descriptor);
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(
+        constructor.prototype,
+        method,
+      );
+      GrpcMethod('UserProxyService', method)(
+        constructor.prototype[method],
+        method,
+        descriptor,
+      );
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("UserProxyService", method)(constructor.prototype[method], method, descriptor);
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(
+        constructor.prototype,
+        method,
+      );
+      GrpcStreamMethod('UserProxyService', method)(
+        constructor.prototype[method],
+        method,
+        descriptor,
+      );
     }
   };
 }
 
-export const USER_PROXY_SERVICE_NAME = "UserProxyService";
+export const USER_PROXY_SERVICE_NAME = 'UserProxyService';

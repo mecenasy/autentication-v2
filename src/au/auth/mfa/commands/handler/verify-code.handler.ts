@@ -1,43 +1,47 @@
 import { Handler } from 'src/common/handler/handler';
-import {
-  VERIFY_MFA_PROXY_SERVICE_NAME,
-  VerifyMfaProxyServiceClient,
-} from 'src/proto/verify-code';
 import { VerifyCodeCommand } from '../impl/verify-code.command';
 import { StatusType } from 'src/au/auth/login/dto/status.type';
 import { AuthStatus } from 'src/au/auth/types/login-status';
 import { CommandHandler } from '@nestjs/cqrs';
-import { lastValueFrom } from 'rxjs';
+import { LoginCache } from 'src/au/auth/types/cache-data';
+import { InternalServerErrorException } from '@nestjs/common';
 
 @CommandHandler(VerifyCodeCommand)
 export class VerifyCodeHandler extends Handler<
   VerifyCodeCommand,
   StatusType,
-  VerifyMfaProxyServiceClient
+  any
 > {
   constructor() {
-    super(VERIFY_MFA_PROXY_SERVICE_NAME);
+    super();
   }
   async execute({
     code,
     email,
     session,
   }: VerifyCodeCommand): Promise<StatusType> {
-    const verified = await this.cache.verifyInCache({
+    const cache = await this.cache.getFromCache<LoginCache>({
       identifier: email,
-      data: code,
     });
 
-    const { userId } = await lastValueFrom(
-      this.gRpcService.getUserId({ email }),
-    );
-
-    session.user_id = userId;
-
-    if (verified) {
-      return { status: AuthStatus.login };
-    } else {
+    if (cache?.code !== code) {
       return { status: AuthStatus.logout };
     }
+    await this.cache.removeFromCache({ identifier: email });
+
+    session.user_id = cache.userId;
+    this.logger.log(session);
+    await new Promise<void>((resolve, reject) => {
+      session.save((err) => {
+        if (err) {
+          reject(new InternalServerErrorException('Failed to save session.'));
+          this.logger.error(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    return { status: AuthStatus.login };
   }
 }

@@ -22,7 +22,7 @@ export class LoginService {
     );
 
     if (!isPasswordValid) {
-      return { success: false, message: 'Invalid password' };
+      return { success: false, message: 'Invalid password or login' };
     }
 
     return {
@@ -30,6 +30,7 @@ export class LoginService {
       message: 'Login successful',
       phone: user.phone,
       is2fa: user.userSettings.isTwoFactorEnabled,
+      userId: user.id,
     };
   }
 

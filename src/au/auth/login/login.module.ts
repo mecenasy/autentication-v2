@@ -4,6 +4,7 @@ import { LoginCommandsResolver } from './login-command.resolver';
 import { CqrsModule } from '@nestjs/cqrs';
 import { loginQueries } from './queries/handler';
 import { LoginQueriesResolver } from './login-query.resolver';
+import { TypeConfigService } from 'src/configs/types.config.service';
 
 @Module({
   imports: [CqrsModule],
@@ -12,6 +13,7 @@ import { LoginQueriesResolver } from './login-query.resolver';
     ...loginQueries,
     LoginCommandsResolver,
     LoginQueriesResolver,
+    TypeConfigService,
   ],
 })
 export class LoginModule {}

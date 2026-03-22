@@ -2,6 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+enum AuthStatus {
+  accept2fa
+  adaptive
+  changePassword
+  email
+  login
+  logout
+  new
+  provider2fa
+  providerSms
+  refresh
+  reject2fa
+  resetPassword
+  sms
+  tfa
+}
+
 input CreateSocialUserType {
   email: String!
   provider: String!
@@ -15,7 +32,9 @@ input CreateUserType {
 }
 
 type LoginStatusType {
-  status: String!
+  message: String
+  phoneId: String
+  status: AuthStatus!
   user: UserStatusType
 }
 
@@ -28,6 +47,7 @@ type Mutation {
   createSocialUser(input: CreateSocialUserType!): UserType!
   createUser(input: CreateUserType!): UserType!
   loginUser(input: LoginType!): StatusType!
+  logoutUser: StatusType!
   verifyMfa(input: VerifyCodeType!): StatusType!
 }
 
@@ -37,7 +57,7 @@ type Query {
 }
 
 type StatusType {
-  status: String!
+  status: AuthStatus!
 }
 
 type UserStatusType {
