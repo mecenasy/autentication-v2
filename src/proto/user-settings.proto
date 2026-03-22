@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package settings;
+
+service SettingsProxyService {
+  rpc reject2Fa (TfaRequest) returns (TfaResponse);
+  rpc verify2Fa (TfaVerifyRequest) returns (TfaResponse);
+}
+
+message TfaRequest {
+  string id = 1;
+}
+
+message TfaVerifyRequest {
+  string id = 1;
+  string secret = 2;
+}
+
+message TfaResponse {
+  enum Status {
+    FAIL = 0;
+    OK = 1;
+  }
+  Status status = 1;
+  optional string message = 2;
+}

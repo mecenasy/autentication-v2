@@ -4,9 +4,10 @@ import { QueryUsersResolver } from './query-user.resolver';
 import { CommandUsersResolver } from './command-user.resolver';
 import { userCommands } from './commands/handlers';
 // import { userQueries } from './queries/handlers';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, SettingsModule],
   providers: [
     ...userCommands,
     // ...userQueries,

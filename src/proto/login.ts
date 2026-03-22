@@ -5,11 +5,11 @@
 // source: src/proto/login.proto
 
 /* eslint-disable */
-import type { Metadata } from '@grpc/grpc-js';
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import type { Metadata } from "@grpc/grpc-js";
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
 
-export const protobufPackage = 'login';
+export const protobufPackage = "login";
 
 export interface LoginRequest {
   email: string;
@@ -40,59 +40,36 @@ export interface UserStatus {
   is2fa: boolean;
 }
 
-export const LOGIN_PACKAGE_NAME = 'login';
+export const LOGIN_PACKAGE_NAME = "login";
 
 export interface LoginProxyServiceClient {
   login(request: LoginRequest, metadata?: Metadata): Observable<LoginResponse>;
 
-  getLoginStatus(
-    request: LoginStatusRequest,
-    metadata?: Metadata,
-  ): Observable<LoginStatusResponse>;
+  getLoginStatus(request: LoginStatusRequest, metadata?: Metadata): Observable<LoginStatusResponse>;
 }
 
 export interface LoginProxyServiceController {
-  login(
-    request: LoginRequest,
-    metadata?: Metadata,
-  ): Promise<LoginResponse> | Observable<LoginResponse> | LoginResponse;
+  login(request: LoginRequest, metadata?: Metadata): Promise<LoginResponse> | Observable<LoginResponse> | LoginResponse;
 
   getLoginStatus(
     request: LoginStatusRequest,
     metadata?: Metadata,
-  ):
-    | Promise<LoginStatusResponse>
-    | Observable<LoginStatusResponse>
-    | LoginStatusResponse;
+  ): Promise<LoginStatusResponse> | Observable<LoginStatusResponse> | LoginStatusResponse;
 }
 
 export function LoginProxyServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ['login', 'getLoginStatus'];
+    const grpcMethods: string[] = ["login", "getLoginStatus"];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcMethod('LoginProxyService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("LoginProxyService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcStreamMethod('LoginProxyService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("LoginProxyService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const LOGIN_PROXY_SERVICE_NAME = 'LoginProxyService';
+export const LOGIN_PROXY_SERVICE_NAME = "LoginProxyService";

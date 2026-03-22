@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AcceptType {
+  dataUrl: String!
+  status: AuthStatus!
+}
+
 enum AuthStatus {
   accept2fa
   adaptive
@@ -44,10 +49,13 @@ input LoginType {
 }
 
 type Mutation {
+  accept2fa: AcceptType!
   createSocialUser(input: CreateSocialUserType!): UserType!
   createUser(input: CreateUserType!): UserType!
   loginUser(input: LoginType!): StatusType!
   logoutUser: StatusType!
+  reject2fa: StatusType!
+  verify2fa(code: String!): StatusType!
   verifyMfa(input: VerifyCodeType!): StatusType!
 }
 
