@@ -19,16 +19,16 @@ interface AuthenticatedSocket extends Socket {
 }
 
 @WebSocketGateway({
-  namespace: 'qr-auth',
+  namespace: 'getaway',
   cors: { origin: '*' },
 })
-export class AuthGetaway implements OnGatewayConnection {
+export class Getaway implements OnGatewayConnection {
   @WebSocketServer()
   server: Server;
   logger: Logger;
 
   constructor() {
-    this.logger = new Logger(AuthGetaway.name);
+    this.logger = new Logger(Getaway.name);
   }
 
   async handleConnection(@ConnectedSocket() client: AuthenticatedSocket) {

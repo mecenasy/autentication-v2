@@ -1,9 +1,9 @@
 import { Global, Module } from '@nestjs/common';
-import { AuthGetaway } from './getaway.getaway';
+import { Getaway } from './getaway.getaway';
 
 @Global()
 @Module({
-  providers: [AuthGetaway],
-  exports: [AuthGetaway],
+  providers: [Getaway],
+  exports: [Getaway],
 })
 export class GetawayModule {}

@@ -30,7 +30,7 @@ export class VerifyCodeHandler extends Handler<
     await this.cache.removeFromCache({ identifier: email });
 
     session.user_id = cache.userId;
-    this.logger.log(session);
+
     await new Promise<void>((resolve, reject) => {
       session.save((err) => {
         if (err) {

@@ -7,11 +7,10 @@ import {
   LoginProxyServiceClient,
 } from 'src/proto/login';
 import { OtpService } from 'src/au/auth/otp/otp.service';
-import { SmsCodeEvent } from '../../../../notify/sms/commands/dto/sms-code.event';
 import { AuthStatus } from 'src/au/auth/types/login-status';
-import { MailCodeEvent } from '../../../../notify/smtp/dto/mail-code.event';
 import { StatusType } from '../../dto/status.type';
 import { LoginCache } from 'src/au/auth/types/cache-data';
+import { SendVerifyCodeEvent } from 'src/au/notify/common/dto/send-verify-code.event';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler extends Handler<
@@ -43,11 +42,7 @@ export class LoginHandler extends Handler<
       return { status: AuthStatus.tfa };
     }
 
-    if (user.phone) {
-      this.event.emit(new SmsCodeEvent(user.phone ?? '', code));
-    }
-
-    this.event.emit(new MailCodeEvent(email, code));
+    this.event.emit(new SendVerifyCodeEvent(user.phone ?? '', email, code));
 
     return { status: AuthStatus.sms };
   }

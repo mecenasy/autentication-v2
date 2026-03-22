@@ -1,8 +1,9 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
-export class SmsCodeEvent extends AggregateRoot {
+export class SendVerifyCodeEvent extends AggregateRoot {
   constructor(
     public readonly phoneNumber: string,
+    public readonly email: string,
     public readonly code: number,
   ) {
     super();
