@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { PasswordService } from './password.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Password } from 'src/common/postgres/entity/password.entity';
+import { Password } from 'src/grpc/user/password/entity/password.entity';
 @Global()
 @Module({
   imports: [TypeOrmModule.forFeature([Password])],

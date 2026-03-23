@@ -6,9 +6,17 @@ import { CommonModule } from './common/common.module';
 import { GrpcModule } from './grpc/grpc.module';
 import { AuthModule } from './au/auth/auth.module';
 import { NotifyModule } from './au/notify/notify.module';
+import { SocialConfigModule } from './au/social-config/social-config.module';
 
 @Module({
-  imports: [UserModule, CommonModule, GrpcModule, AuthModule, NotifyModule],
+  imports: [
+    UserModule,
+    CommonModule,
+    GrpcModule,
+    AuthModule,
+    NotifyModule,
+    SocialConfigModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

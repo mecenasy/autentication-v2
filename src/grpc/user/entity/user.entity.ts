@@ -1,4 +1,5 @@
 import { IsEmail, IsPhoneNumber } from 'class-validator';
+import { AtLeastOneExists } from 'src/common/decorators/at-least-one-exist.decorator';
 import {
   Column,
   CreateDateColumn,
@@ -8,13 +9,12 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Password } from './password.entity';
-import { UserSettings } from './user-settings.entity';
-import { AtLeastOneExists } from '../../decorators/at-least-one-exist.decorator';
-import { SocialAccounts } from './social-accounts.entity';
-import { PassKey } from './passkey.entity';
-import { ProjectAuth } from './project-auth.entity';
-import { History } from './history.entity';
+import { Password } from '../password/entity/password.entity';
+import { SocialAccounts } from '../social-accounts/entity/social-accounts.entity';
+import { PassKey } from 'src/common/postgres/entity/passkey.entity';
+import { ProjectAuth } from 'src/common/postgres/entity/project-auth.entity';
+import { UserSettings } from '../user-settings/entity/user-settings.entity';
+import { History } from 'src/common/postgres/entity/history.entity';
 
 @Entity('users')
 export class User {

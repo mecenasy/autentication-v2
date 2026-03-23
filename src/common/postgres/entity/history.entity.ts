@@ -1,5 +1,5 @@
+import { User } from 'src/grpc/user/entity/user.entity';
 import { RiskReason } from 'src/risk-temp/types/risk-reason';
-import { User } from './user.entity';
 import {
   Column,
   CreateDateColumn,

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SocialAccounts } from 'src/common/postgres/entity/social-accounts.entity';
 import { Repository } from 'typeorm';
+import { SocialAccounts } from './entity/social-accounts.entity';
 
 @Injectable()
 export class SocialAccountsService {

@@ -1,6 +1,6 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserSettings } from 'src/common/postgres/entity/user-settings.entity';
+import { UserSettings } from 'src/grpc/user/user-settings/entity/user-settings.entity';
 import { Repository } from 'typeorm';
 import { UserGrpcService } from '../user.service';
 import { TfaResponse, TfaResponse_Status } from 'src/proto/user-settings';

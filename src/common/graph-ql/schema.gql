@@ -7,6 +7,11 @@ type AcceptType {
   status: AuthStatus!
 }
 
+type ActiveSocialConfigType {
+  active: Boolean!
+  id: ID!
+}
+
 enum AuthStatus {
   accept2fa
   adaptive
@@ -30,6 +35,15 @@ input ChangePasswordType {
   oldPassword: String!
 }
 
+input CreateSocialConfigDto {
+  active: Boolean!
+  callbackUrl: String
+  clientId: String!
+  name: String!
+  provider: Provider!
+  secret: String!
+}
+
 input CreateSocialUserType {
   email: String!
   provider: String!
@@ -40,6 +54,10 @@ input CreateUserType {
   email: String!
   password: String!
   phone: String!
+}
+
+type DeleteSocialConfigType {
+  id: ID!
 }
 
 input ForgotPasswordType {
@@ -60,21 +78,36 @@ input LoginType {
 
 type Mutation {
   accept2fa: AcceptType!
+  activeSocialConfig(id: String!): ActiveSocialConfigType!
   changePassword(input: ChangePasswordType!): StatusType!
+  createSocialConfig(input: CreateSocialConfigDto!): SocialConfigType!
   createSocialUser(input: CreateSocialUserType!): UserType!
   createUser(input: CreateUserType!): UserType!
+  deleteSocialConfig(id: String!): DeleteSocialConfigType!
   forgotPassword(input: ForgotPasswordType!): StatusType!
   loginUser(input: LoginType!): StatusType!
   logoutUser: StatusType!
   reject2fa: StatusType!
   resetPassword(input: ResetPasswordType!): StatusType!
+  updateSocialConfig(config: UpdateSocialConfigDto!, id: String!): SocialConfigType!
   verify2fa(code: String!): StatusType!
   verify2faCode(input: Verify2faCodeType!): StatusType!
   verifyMfa(input: VerifyCodeType!): StatusType!
 }
 
+enum Provider {
+  facebook
+  github
+  google
+  linkedin
+  microsoft
+  twitter
+}
+
 type Query {
   _ping: Boolean
+  getAllConfig: SocialConfigsType!
+  getConfig(id: String!): SocialConfigType!
   loginStatus: LoginStatusType!
   verifyToken(token: String!): VerifyTokenType!
 }
@@ -84,8 +117,31 @@ input ResetPasswordType {
   token: String!
 }
 
+type SocialConfigType {
+  active: Boolean!
+  callbackUrl: String
+  clientId: String!
+  id: ID!
+  name: String!
+  provider: Provider!
+  secret: String!
+}
+
+type SocialConfigsType {
+  configs: [SocialConfigType!]!
+}
+
 type StatusType {
   status: AuthStatus!
+}
+
+input UpdateSocialConfigDto {
+  active: Boolean
+  callbackUrl: String
+  clientId: String
+  name: String
+  provider: Provider
+  secret: String
 }
 
 type UserStatusType {

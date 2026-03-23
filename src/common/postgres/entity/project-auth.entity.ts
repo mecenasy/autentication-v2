@@ -1,3 +1,4 @@
+import { User } from 'src/grpc/user/entity/user.entity';
 import {
   Column,
   PrimaryGeneratedColumn,
@@ -6,7 +7,6 @@ import {
   ManyToOne,
   Entity,
 } from 'typeorm';
-import { User } from './user.entity';
 
 @Entity('project_auth')
 export class ProjectAuth {

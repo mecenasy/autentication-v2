@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './user.entity';
-import { Provider } from '../../../libs/utils/provider';
+import { User } from '../../entity/user.entity';
+import { Provider } from 'src/libs/utils/provider';
 
 @Entity('social_accounts')
 export class SocialAccounts {

@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { PasswordService } from './password/password.service';
 import { UserSettingsService } from './user-settings/user-settings.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/common/postgres/entity/user.entity';
 import { Repository } from 'typeorm';
 import { SocialAccountsService } from './social-accounts/social-accounts.service';
 import type {
@@ -11,6 +10,7 @@ import type {
   SocialUserResponse,
   UserResponse,
 } from 'src/proto/user';
+import { User } from './entity/user.entity';
 
 @Injectable()
 export class UserGrpcService {

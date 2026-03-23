@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserSettingsService } from './user-settings.service';
 import { UserSettingsController } from './user-settings.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserSettings } from 'src/common/postgres/entity/user-settings.entity';
+import { UserSettings } from 'src/grpc/user/user-settings/entity/user-settings.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserSettings])],

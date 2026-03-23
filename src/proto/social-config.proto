@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package socialConfig;
+import "google/protobuf/empty.proto";
+
+service SocialConfigProxyService {
+  rpc FindAllSocialConfigs (google.protobuf.Empty) returns (FindAllSocialConfigsResponse);
+  rpc CreateSocialConfig (CreateSocialConfigRequest) returns (SocialConfigResponse);
+  rpc UpdateSocialConfig (UpdateSocialConfigRequest) returns (SocialConfigResponse);
+  rpc DeleteSocialConfig (DeleteSocialConfigRequest) returns (DeleteSocialConfigResponse);
+  rpc GetSocialConfig (GetSocialConfigRequest) returns (SocialConfigResponse);
+  rpc ActiveSocialConfig (ActiveSocialConfigRequest) returns (ActiveSocialConfigResponse);
+}
+
+message FindAllSocialConfigsResponse {
+  repeated SocialConfigResponse socialConfigs = 1;
+}
+
+message CreateSocialConfigRequest {
+  string name = 1;
+  string provider = 2;
+  string clientId = 3;
+  string secret = 4;
+  optional string callbackUrl =5; 
+} 
+
+message SocialConfigResponse {
+  string id = 1;
+  string name = 2;
+  string provider = 3;
+  string clientId = 4;
+  string secret =5;
+  optional string callbackUrl = 6;
+  bool active = 7; 
+} 
+
+message UpdateSocialConfigRequest {
+  string id = 1;
+  optional string name = 2;
+  optional string provider = 3;
+  optional string clientId = 4;
+  optional string secret = 5;
+  optional string callbackUrl = 6; 
+  optional bool active = 7; 
+} 
+
+message DeleteSocialConfigRequest {
+  string id = 1;
+} 
+
+message DeleteSocialConfigResponse {
+  string id = 1;
+}
+
+message GetSocialConfigRequest {
+  string id = 1;
+}
+
+message ActiveSocialConfigRequest {
+  string id = 1;
+}
+
+message ActiveSocialConfigResponse {
+  bool active = 1;
+  string id = 2;
+}
+
+

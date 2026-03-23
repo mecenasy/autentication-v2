@@ -1,4 +1,4 @@
-import { User } from './user.entity';
+import { User } from 'src/grpc/user/entity/user.entity';
 import {
   Column,
   CreateDateColumn,

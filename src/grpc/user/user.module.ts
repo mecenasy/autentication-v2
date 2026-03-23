@@ -4,7 +4,7 @@ import { UserGrpcController } from './user.controller';
 import { UserSettingsModule } from './user-settings/user-settings.module';
 import { SocialAccountsModule } from './social-accounts/social-accounts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/common/postgres/entity/user.entity';
+import { User } from './entity/user.entity';
 import { UserGrpcService } from './user.service';
 
 @Global()

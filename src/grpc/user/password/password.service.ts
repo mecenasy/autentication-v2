@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 import { IPassword } from './model/password.model';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Password } from 'src/common/postgres/entity/password.entity';
+import { Password } from 'src/grpc/user/password/entity/password.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
