@@ -1,0 +1,23 @@
+import { CommandBus } from '@nestjs/cqrs';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import { StatusType } from '../login/dto/status.type';
+import express from 'express';
+import { Public } from 'src/common/decorators/public.decorator';
+import { Verify2faCodeCommand } from './folders/commands/impl/verify-2fa-code.command';
+import { Verify2faCodeType } from './folders/dto/verify-2fa-code.type';
+
+@Resolver('Verify2faCode')
+export class Verify2faCodeResolver {
+  constructor(private readonly commandBus: CommandBus) {}
+
+  @Public()
+  @Mutation(() => StatusType)
+  async verify2faCode(
+    @Args('input') { code, email }: Verify2faCodeType,
+    @Context() ctx: express.Response,
+  ) {
+    return this.commandBus.execute<Verify2faCodeCommand, StatusType>(
+      new Verify2faCodeCommand(email, code, ctx.req.session),
+    );
+  }
+}

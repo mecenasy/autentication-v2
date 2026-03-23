@@ -12,6 +12,7 @@ enum AuthStatus {
   adaptive
   changePassword
   email
+  forgotPassword
   login
   logout
   new
@@ -24,6 +25,11 @@ enum AuthStatus {
   tfa
 }
 
+input ChangePasswordType {
+  newPassword: String!
+  oldPassword: String!
+}
+
 input CreateSocialUserType {
   email: String!
   provider: String!
@@ -34,6 +40,10 @@ input CreateUserType {
   email: String!
   password: String!
   phone: String!
+}
+
+input ForgotPasswordType {
+  email: String!
 }
 
 type LoginStatusType {
@@ -50,18 +60,28 @@ input LoginType {
 
 type Mutation {
   accept2fa: AcceptType!
+  changePassword(input: ChangePasswordType!): StatusType!
   createSocialUser(input: CreateSocialUserType!): UserType!
   createUser(input: CreateUserType!): UserType!
+  forgotPassword(input: ForgotPasswordType!): StatusType!
   loginUser(input: LoginType!): StatusType!
   logoutUser: StatusType!
   reject2fa: StatusType!
+  resetPassword(input: ResetPasswordType!): StatusType!
   verify2fa(code: String!): StatusType!
+  verify2faCode(input: Verify2faCodeType!): StatusType!
   verifyMfa(input: VerifyCodeType!): StatusType!
 }
 
 type Query {
   _ping: Boolean
   loginStatus: LoginStatusType!
+  verifyToken(token: String!): VerifyTokenType!
+}
+
+input ResetPasswordType {
+  password: String!
+  token: String!
 }
 
 type StatusType {
@@ -81,7 +101,16 @@ type UserType {
   id: ID!
 }
 
+input Verify2faCodeType {
+  code: String!
+  email: String!
+}
+
 input VerifyCodeType {
   code: Float!
   email: String!
+}
+
+type VerifyTokenType {
+  verify: Boolean!
 }

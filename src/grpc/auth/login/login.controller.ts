@@ -3,10 +3,18 @@ import { LoginService } from './login.service';
 import {
   LOGIN_PROXY_SERVICE_NAME,
   LoginProxyServiceController,
-  type LoginStatusRequest,
-  type LoginRequest,
-  type LoginResponse,
-  type LoginStatusResponse,
+} from 'src/proto/login';
+import type {
+  LoginStatusRequest,
+  LoginRequest,
+  LoginResponse,
+  LoginStatusResponse,
+  ResetPasswordRequest,
+  ChangePasswordRequest,
+  ResetPasswordResponse,
+  ChangePasswordResponse,
+  Verify2FARequest,
+  Verify2FAResponse,
 } from 'src/proto/login';
 import { GrpcMethod } from '@nestjs/microservices';
 
@@ -24,5 +32,32 @@ export class LoginController implements LoginProxyServiceController {
     request: LoginStatusRequest,
   ): Promise<LoginStatusResponse> {
     return await this.loginService.getLoginStatus(request.userId);
+  }
+
+  @GrpcMethod(LOGIN_PROXY_SERVICE_NAME, 'ResetPassword')
+  async resetPassword(
+    request: ResetPasswordRequest,
+  ): Promise<ResetPasswordResponse> {
+    return await this.loginService.resetPassword(
+      request.email,
+      request.password,
+    );
+  }
+
+  @GrpcMethod(LOGIN_PROXY_SERVICE_NAME, 'ChangePassword')
+  async changePassword(
+    request: ChangePasswordRequest,
+  ): Promise<ChangePasswordResponse> {
+    return await this.loginService.changePassword(
+      request.userId,
+      request.oldPassword,
+      request.newPassword,
+    );
+  }
+  @GrpcMethod(LOGIN_PROXY_SERVICE_NAME, 'GetUser2FaSecret')
+  async getUser2FaSecret(
+    request: Verify2FARequest,
+  ): Promise<Verify2FAResponse> {
+    return await this.loginService.getUser2FaSecret(request.login);
   }
 }

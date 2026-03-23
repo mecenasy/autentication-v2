@@ -1,6 +1,7 @@
 import { Resolver, Query, Args, ID } from '@nestjs/graphql';
 import { QueryBus } from '@nestjs/cqrs';
 import { UserType } from './dto/user.type.';
+import { Public } from 'src/common/decorators/public.decorator';
 // import { GetUserQuery } from './queries/impl/get-user.query';
 // import { GetAllUsersQuery } from './queries/impl/get-all-users.query';
 // import { SearchUserQuery } from './queries/impl/search-user.query';
@@ -10,6 +11,7 @@ import { UserType } from './dto/user.type.';
 export class QueryUsersResolver {
   constructor(private readonly queryBus: QueryBus) {}
 
+  @Public()
   @Query(() => Boolean, { name: '_ping', nullable: true })
   _ping() {
     return true;

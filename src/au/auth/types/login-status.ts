@@ -12,5 +12,6 @@ export enum AuthStatus {
   logout = 'logout',
   refresh = 'refresh',
   changePassword = 'changePassword',
+  forgotPassword = 'forgotPassword',
   resetPassword = 'resetPassword',
 }

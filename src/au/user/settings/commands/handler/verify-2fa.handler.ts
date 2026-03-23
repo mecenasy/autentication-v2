@@ -41,7 +41,7 @@ export class Verify2faHandler extends Handler<
     }
 
     const { status, message } = await lastValueFrom(
-      this.gRpcService.verify2Fa({ id, secret: 'result' }),
+      this.gRpcService.verify2Fa({ id, secret: result }),
     );
 
     if (message || !status) {

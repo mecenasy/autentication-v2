@@ -5,6 +5,9 @@ package login;
 service LoginProxyService {
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc GetLoginStatus (LoginStatusRequest) returns (LoginStatusResponse);
+  rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
+  rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse);
+  rpc GetUser2FaSecret (Verify2FARequest) returns (Verify2FAResponse);
 }
 
 message LoginRequest {
@@ -36,4 +39,34 @@ message UserStatus {
   string email = 2;
   bool isAdaptive = 3;
   bool is2fa = 4;
+}
+
+message ResetPasswordRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message ResetPasswordResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ChangePasswordRequest {
+  string userId = 1;
+  string oldPassword = 2;
+  string newPassword = 3;
+}
+
+message ChangePasswordResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message Verify2FARequest {
+  string login = 1;
+}
+
+message Verify2FAResponse {
+  string secret = 1;
+  string userId = 2;
 }

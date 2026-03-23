@@ -1,3 +1,3 @@
 import { MailCodeHandler } from './mail-code.handler';
-
-export const smtpCommands = [MailCodeHandler];
+import { ResetTokenHandler } from './reset-token.handler';
+export const smtpCommands = [MailCodeHandler, ResetTokenHandler];

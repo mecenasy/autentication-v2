@@ -39,6 +39,6 @@ import { smtpCommands } from './commands/handler';
       }),
     }),
   ],
-  providers: [SmtpSaga, ...smtpCommands],
+  providers: [SmtpSaga, TypeConfigService, ...smtpCommands],
 })
 export class SmtpModule {}

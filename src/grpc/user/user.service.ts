@@ -87,6 +87,37 @@ export class UserGrpcService {
       .getOne();
   }
 
+  public async findUserByEmail(email: string): Promise<User | UserResponse> {
+    const result = await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.socialAccounts', 'social')
+      .where('user.email = :email', { email })
+      .getOne();
+
+    return (
+      result || {
+        id: '',
+        email: '',
+        phone: '',
+      }
+    );
+  }
+
+  public async findUserById(id: string): Promise<User | UserResponse> {
+    const result = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.id = :id', { id })
+      .getOne();
+
+    return (
+      result || {
+        id: '',
+        email: '',
+        phone: '',
+      }
+    );
+  }
+
   // public async findSocialUser({
   //   email,
   //   provider,
@@ -118,14 +149,22 @@ export class UserGrpcService {
       .getOneOrFail();
   }
 
-  // public async findUserWithPasswordById(id?: string) {
-  //   return await this.userRepository
-  //     .createQueryBuilder('user')
-  //     .leftJoinAndSelect('user.password', 'password')
-  //     .leftJoinAndSelect('user.userSettings', 'settings')
-  //     .orWhere('user.id = :id', { id })
-  //     .getOneOrFail();
-  // }
+  public async findUserSettings(login: string) {
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.userSettings', 'settings')
+      .where('user.email = :email', { email: login })
+      .getOneOrFail();
+  }
+
+  public async findUserWithPasswordById(id?: string) {
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.password', 'password')
+      .leftJoinAndSelect('user.userSettings', 'settings')
+      .orWhere('user.id = :id', { id })
+      .getOneOrFail();
+  }
 
   // public async findUseWithPasskeyById(userId: string) {
   //   return await this.userRepository

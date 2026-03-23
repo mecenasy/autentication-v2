@@ -5,11 +5,11 @@
 // source: src/proto/user-settings.proto
 
 /* eslint-disable */
-import type { Metadata } from "@grpc/grpc-js";
-import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
-import { Observable } from "rxjs";
+import type { Metadata } from '@grpc/grpc-js';
+import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
-export const protobufPackage = "settings";
+export const protobufPackage = 'settings';
 
 export interface TfaRequest {
   id: string;
@@ -31,16 +31,22 @@ export enum TfaResponse_Status {
   UNRECOGNIZED = -1,
 }
 
-export const SETTINGS_PACKAGE_NAME = "settings";
+export const SETTINGS_PACKAGE_NAME = 'settings';
 
 export interface SettingsProxyServiceClient {
   reject2Fa(request: TfaRequest, metadata?: Metadata): Observable<TfaResponse>;
 
-  verify2Fa(request: TfaVerifyRequest, metadata?: Metadata): Observable<TfaResponse>;
+  verify2Fa(
+    request: TfaVerifyRequest,
+    metadata?: Metadata,
+  ): Observable<TfaResponse>;
 }
 
 export interface SettingsProxyServiceController {
-  reject2Fa(request: TfaRequest, metadata?: Metadata): Promise<TfaResponse> | Observable<TfaResponse> | TfaResponse;
+  reject2Fa(
+    request: TfaRequest,
+    metadata?: Metadata,
+  ): Promise<TfaResponse> | Observable<TfaResponse> | TfaResponse;
 
   verify2Fa(
     request: TfaVerifyRequest,
@@ -50,17 +56,31 @@ export interface SettingsProxyServiceController {
 
 export function SettingsProxyServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["reject2Fa", "verify2Fa"];
+    const grpcMethods: string[] = ['reject2Fa', 'verify2Fa'];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("SettingsProxyService", method)(constructor.prototype[method], method, descriptor);
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(
+        constructor.prototype,
+        method,
+      );
+      GrpcMethod('SettingsProxyService', method)(
+        constructor.prototype[method],
+        method,
+        descriptor,
+      );
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("SettingsProxyService", method)(constructor.prototype[method], method, descriptor);
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(
+        constructor.prototype,
+        method,
+      );
+      GrpcStreamMethod('SettingsProxyService', method)(
+        constructor.prototype[method],
+        method,
+        descriptor,
+      );
     }
   };
 }
 
-export const SETTINGS_PROXY_SERVICE_NAME = "SettingsProxyService";
+export const SETTINGS_PROXY_SERVICE_NAME = 'SettingsProxyService';

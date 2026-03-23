@@ -24,7 +24,7 @@ export class UserSettingsService {
       };
     }
 
-    user.userSettings.isAdaptiveAuthEnabled = true;
+    user.userSettings.isTwoFactorEnabled = true;
     user.userSettings.twoFactorSecret = secret;
 
     await this.userService.save(user);
@@ -44,7 +44,7 @@ export class UserSettingsService {
       };
     }
 
-    user.userSettings.isAdaptiveAuthEnabled = false;
+    user.userSettings.isTwoFactorEnabled = false;
     user.userSettings.twoFactorSecret = null;
 
     await this.userService.save(user);
