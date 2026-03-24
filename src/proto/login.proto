@@ -13,6 +13,20 @@ service LoginProxyService {
 message LoginRequest {
   string email = 1;
   string password = 2;
+  string fingerprintHash = 3;
+}
+
+message History {
+  string city = 1;
+  string country = 2;
+  string lastIp = 3;
+  string fingerprintHash = 4;
+  string userAgent = 5;
+  repeated string riskReasons = 6;
+  int32 lastScore = 7;
+  int32 failureCount = 8;
+  string updatedAt = 9;
+  string lastFailureAt = 10;
 }
 
 message LoginResponse {
@@ -21,6 +35,8 @@ message LoginResponse {
   optional string phone = 3;
   optional bool is2fa = 4;
   optional string userId = 5;
+  optional bool isAdaptive = 6;
+  optional History history = 7;
 }
 
 message LoginStatusRequest {

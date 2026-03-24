@@ -31,6 +31,14 @@ export enum TfaResponse_Status {
   UNRECOGNIZED = -1,
 }
 
+export interface AdaptiveRequest {
+  id: string;
+}
+
+export interface AdaptiveResponse {
+  active: boolean;
+}
+
 export const SETTINGS_PACKAGE_NAME = 'settings';
 
 export interface SettingsProxyServiceClient {
@@ -40,6 +48,11 @@ export interface SettingsProxyServiceClient {
     request: TfaVerifyRequest,
     metadata?: Metadata,
   ): Observable<TfaResponse>;
+
+  acceptAdaptive(
+    request: AdaptiveRequest,
+    metadata?: Metadata,
+  ): Observable<AdaptiveResponse>;
 }
 
 export interface SettingsProxyServiceController {
@@ -52,11 +65,19 @@ export interface SettingsProxyServiceController {
     request: TfaVerifyRequest,
     metadata?: Metadata,
   ): Promise<TfaResponse> | Observable<TfaResponse> | TfaResponse;
+
+  acceptAdaptive(
+    request: AdaptiveRequest,
+    metadata?: Metadata,
+  ):
+    | Promise<AdaptiveResponse>
+    | Observable<AdaptiveResponse>
+    | AdaptiveResponse;
 }
 
 export function SettingsProxyServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ['reject2Fa', 'verify2Fa'];
+    const grpcMethods: string[] = ['reject2Fa', 'verify2Fa', 'acceptAdaptive'];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(
         constructor.prototype,

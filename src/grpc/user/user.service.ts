@@ -12,6 +12,7 @@ import type {
   UserResponse,
 } from 'src/proto/user';
 import { User } from './entity/user.entity';
+import { HistoryService } from './history/history.service';
 
 @Injectable()
 export class UserGrpcService {
@@ -20,6 +21,7 @@ export class UserGrpcService {
     private readonly passwordService: PasswordService,
     private readonly userSettingsService: UserSettingsService,
     private readonly socialAccountsService: SocialAccountsService,
+    private readonly historyService: HistoryService,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {
@@ -142,13 +144,24 @@ export class UserGrpcService {
     );
   }
 
-  public async findUserWithPassword(login: string) {
-    return await this.userRepository
+  public async findUserWithPassword(login: string, fingerprintHash?: string) {
+    const user = await this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.password', 'password')
       .leftJoinAndSelect('user.userSettings', 'settings')
       .where('user.email = :email', { email: login })
       .getOne();
+
+    if (user?.userSettings?.isAdaptiveAuthEnabled) {
+      const history = await this.historyService.getHistory(
+        user.id,
+        fingerprintHash ?? '',
+      );
+      if (history) {
+        user.authHistories = [history];
+      }
+    }
+    return user;
   }
 
   public async findUserSettingsById(id: string) {

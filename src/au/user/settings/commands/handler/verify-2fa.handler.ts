@@ -13,6 +13,7 @@ import {
 } from 'src/proto/user-settings';
 import { authenticator } from '@otplib/preset-default';
 import { StatusType } from 'src/au/auth/login/dto/status.type';
+import { LoginStatusType } from 'src/au/auth/login/dto/login-status.tape';
 
 @CommandHandler(Verify2faCommand)
 export class Verify2faHandler extends Handler<
@@ -52,6 +53,22 @@ export class Verify2faHandler extends Handler<
       identifier: id,
       prefix: '2fa-state',
     });
+
+    const data = await this.cache.getFromCache<LoginStatusType['user']>({
+      identifier: id,
+      prefix: 'user-state',
+    });
+
+    if (data) {
+      data.is2faEnabled = true;
+
+      await this.cache.saveInCache<LoginStatusType['user']>({
+        identifier: id,
+        prefix: 'user-state',
+        EX: 3600,
+        data,
+      });
+    }
 
     return {
       status: AuthStatus.reject2fa,

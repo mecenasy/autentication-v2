@@ -6,6 +6,7 @@ import { Accept2faCommand } from './commands/impl/accept-2fa.command';
 import { AcceptType } from './dto/accept-2fa.type';
 import { StatusType } from 'src/au/auth/login/dto/status.type';
 import { Verify2faCommand } from './commands/impl/verify-2fa.command';
+import { AcceptAdaptiveLoginCommand } from './commands/impl/accept-adaptive-login.command';
 
 @Resolver('Settings')
 export class SettingsCommandResolver {
@@ -23,6 +24,14 @@ export class SettingsCommandResolver {
     return await this.commandBus.execute<Reject2FaCommand, StatusType>(
       new Reject2FaCommand(id),
     );
+  }
+
+  @Mutation(() => StatusType)
+  async adaptiveLogin(@CurrentUserId() id: string) {
+    return await this.commandBus.execute<
+      AcceptAdaptiveLoginCommand,
+      StatusType
+    >(new AcceptAdaptiveLoginCommand(id));
   }
 
   @Mutation(() => StatusType)

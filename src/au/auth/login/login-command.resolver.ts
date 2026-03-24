@@ -14,22 +14,31 @@ import { ResetPasswordType } from './dto/reset-password.tape';
 import { ResetPasswordCommand } from './commands/impl/reset-password.command';
 import { ForgotPasswordCommand } from './commands/impl/forgot-password.command';
 import { ForgotPasswordType } from './dto/forgot-password.tape';
-import { UseGuards } from '@nestjs/common';
+import { UseGuards, UseInterceptors } from '@nestjs/common';
 import { AzureGqlAuthGuard } from 'src/common/guards/azure-gpl.guard';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import type { SocialUser } from 'src/libs/utils/is-social-user';
 import { VerificationTokenCommand } from './commands/impl/verification-token.command';
 import { SocialLoginCommand } from './commands/impl/social-login.command';
+import {
+  type Security,
+  SecurityContextInterceptor,
+} from 'src/common/interceptors/security-context.interceptor';
+import { SecurityContext } from 'src/common/decorators/security-context.decorator';
 
 @Resolver('Login')
+@UseInterceptors(SecurityContextInterceptor)
 export class LoginCommandsResolver {
   constructor(private readonly commandBus: CommandBus) {}
 
   @Public()
   @Mutation(() => StatusType)
-  async loginUser(@Args('input') input: LoginType) {
+  async loginUser(
+    @Args('input') input: LoginType,
+    @SecurityContext() security: Security,
+  ) {
     return this.commandBus.execute<LoginCommand, StatusType>(
-      new LoginCommand(input.email, input.password),
+      new LoginCommand(input.email, input.password, security),
     );
   }
 

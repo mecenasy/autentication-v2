@@ -6,9 +6,10 @@ import { loginQueries } from './queries/handler';
 import { LoginQueriesResolver } from './login-query.resolver';
 import { TypeConfigService } from 'src/configs/types.config.service';
 import { AuthController } from './login.controller';
+import { RiskModule } from '../risk/risk.module';
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, RiskModule],
   providers: [
     ...loginCommand,
     ...loginQueries,

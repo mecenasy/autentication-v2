@@ -5,6 +5,7 @@ package settings;
 service SettingsProxyService {
   rpc reject2Fa (TfaRequest) returns (TfaResponse);
   rpc verify2Fa (TfaVerifyRequest) returns (TfaResponse);
+  rpc acceptAdaptive(AdaptiveRequest) returns (AdaptiveResponse);
 }
 
 message TfaRequest {
@@ -23,4 +24,12 @@ message TfaResponse {
   }
   Status status = 1;
   optional string message = 2;
+}
+
+message AdaptiveRequest {
+  string id = 1;
+}
+
+message AdaptiveResponse {
+  bool active = 1;
 }

@@ -73,6 +73,7 @@ input LoginType {
 type Mutation {
   accept2fa: AcceptType!
   activeSocialConfig(id: String!): ActiveSocialConfigType!
+  adaptiveLogin: StatusType!
   azureLogin: StatusType!
   changePassword(input: ChangePasswordType!): StatusType!
   createSocialConfig(input: CreateSocialConfigDto!): SocialConfigType!

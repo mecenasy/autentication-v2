@@ -9,6 +9,7 @@ import {
   SETTINGS_PROXY_SERVICE_NAME,
   SettingsProxyServiceClient,
 } from 'src/proto/user-settings';
+import { LoginStatusType } from 'src/au/auth/login/dto/login-status.tape';
 
 @CommandHandler(Reject2FaCommand)
 export class Reject2faHandler extends Handler<
@@ -27,6 +28,22 @@ export class Reject2faHandler extends Handler<
 
     if (message || !status) {
       throw new InternalServerErrorException('Failed to reject 2FA');
+    }
+
+    const data = await this.cache.getFromCache<LoginStatusType['user']>({
+      identifier: id,
+      prefix: 'user-state',
+    });
+
+    if (data) {
+      data.is2faEnabled = false;
+
+      await this.cache.saveInCache<LoginStatusType['user']>({
+        identifier: id,
+        prefix: 'user-state',
+        EX: 3600,
+        data,
+      });
     }
 
     return {

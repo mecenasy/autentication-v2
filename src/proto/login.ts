@@ -14,6 +14,20 @@ export const protobufPackage = 'login';
 export interface LoginRequest {
   email: string;
   password: string;
+  fingerprintHash: string;
+}
+
+export interface History {
+  city: string;
+  country: string;
+  lastIp: string;
+  fingerprintHash: string;
+  userAgent: string;
+  riskReasons: string[];
+  lastScore: number;
+  failureCount: number;
+  updatedAt: string;
+  lastFailureAt: string;
 }
 
 export interface LoginResponse {
@@ -22,6 +36,8 @@ export interface LoginResponse {
   phone?: string | undefined;
   is2fa?: boolean | undefined;
   userId?: string | undefined;
+  isAdaptive?: boolean | undefined;
+  history?: History | undefined;
 }
 
 export interface LoginStatusRequest {

@@ -11,6 +11,7 @@ import { AuthStatus } from 'src/au/auth/types/login-status';
 import { StatusType } from '../../dto/status.type';
 import { LoginCache } from 'src/au/auth/types/cache-data';
 import { SendVerifyCodeEvent } from 'src/au/notify/common/dto/send-verify-code.event';
+import { RiskService } from 'src/au/auth/risk/risk.service';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler extends Handler<
@@ -18,17 +19,41 @@ export class LoginHandler extends Handler<
   StatusType,
   LoginProxyServiceClient
 > {
-  constructor(private readonly otpService: OtpService) {
+  constructor(
+    private readonly otpService: OtpService,
+    private readonly riskService: RiskService,
+  ) {
     super(LOGIN_PROXY_SERVICE_NAME);
   }
 
-  async execute({ email, password }: LoginCommand) {
+  async execute({ email, password, security }: LoginCommand) {
     const user = await lastValueFrom(
-      this.gRpcService.login({ email, password }),
+      this.gRpcService.login({
+        email,
+        password,
+        fingerprintHash: security.fingerprint,
+      }),
     );
 
     if (!user.success) {
+      if (user.userId && user.isAdaptive && user.history) {
+        this.riskService.addFailure(user.userId, security);
+      }
       return { status: AuthStatus.logout, message: user.message };
+    }
+
+    if (user.isAdaptive && user.history) {
+      const risk = await this.riskService.calculateRisk(
+        user.userId ?? '',
+        user.history,
+        security,
+      );
+      if (risk.score <= 40) {
+        return { status: AuthStatus.login, score: risk.score };
+      }
+    }
+    if (user.is2fa) {
+      return { status: AuthStatus.tfa };
     }
 
     const code = this.otpService.generateOtp();
@@ -37,10 +62,6 @@ export class LoginHandler extends Handler<
       identifier: email,
       data: { code, userId: user.userId ?? '' },
     });
-
-    if (user.is2fa) {
-      return { status: AuthStatus.tfa };
-    }
 
     this.event.emit(new SendVerifyCodeEvent(user.phone ?? '', email, code));
 

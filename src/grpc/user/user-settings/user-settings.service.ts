@@ -3,7 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserSettings } from 'src/grpc/user/user-settings/entity/user-settings.entity';
 import { Repository } from 'typeorm';
 import { UserGrpcService } from '../user.service';
-import { TfaResponse, TfaResponse_Status } from 'src/proto/user-settings';
+import {
+  AdaptiveRequest,
+  AdaptiveResponse,
+  TfaResponse,
+  TfaResponse_Status,
+} from 'src/proto/user-settings';
 
 @Injectable()
 export class UserSettingsService {
@@ -52,6 +57,18 @@ export class UserSettingsService {
     return {
       status: TfaResponse_Status.OK,
     };
+  }
+
+  public async acceptAdaptive({
+    id,
+  }: AdaptiveRequest): Promise<AdaptiveResponse> {
+    const user = await this.userService.findUserSettingsById(id);
+    const active = user.userSettings.isAdaptiveAuthEnabled;
+    user.userSettings.isAdaptiveAuthEnabled = active;
+
+    await this.userService.save(user);
+
+    return { active };
   }
 
   public create() {

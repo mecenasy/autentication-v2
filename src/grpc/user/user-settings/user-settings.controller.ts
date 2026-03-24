@@ -1,5 +1,7 @@
 import { Controller } from '@nestjs/common';
 import {
+  AdaptiveRequest,
+  AdaptiveResponse,
   SETTINGS_PROXY_SERVICE_NAME,
   SettingsProxyServiceController,
   type TfaRequest,
@@ -21,5 +23,9 @@ export class UserSettingsController implements SettingsProxyServiceController {
   @GrpcMethod(SETTINGS_PROXY_SERVICE_NAME, 'verify2Fa')
   async verify2Fa({ id, secret }: TfaVerifyRequest): Promise<TfaResponse> {
     return await this.userSettingsService.verify2fa(id, secret);
+  }
+
+  async acceptAdaptive(request: AdaptiveRequest): Promise<AdaptiveResponse> {
+    return await this.userSettingsService.acceptAdaptive(request);
   }
 }

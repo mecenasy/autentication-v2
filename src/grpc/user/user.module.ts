@@ -6,6 +6,7 @@ import { SocialAccountsModule } from './social-accounts/social-accounts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { UserGrpcService } from './user.service';
+import { HistoryModule } from './history/history.module';
 
 @Global()
 @Module({
@@ -14,6 +15,7 @@ import { UserGrpcService } from './user.service';
     PasswordModule,
     UserSettingsModule,
     SocialAccountsModule,
+    HistoryModule,
   ],
   controllers: [UserGrpcController],
   providers: [UserGrpcService],
