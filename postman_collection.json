@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "189ab4ec-c7e2-485a-9682-5eba37a9c142",
+      "id": "72bbc26b-8a50-4b62-b07c-2ba18bad92c4",
       "name": "App Controller get Hello",
       "request": {
         "name": "App Controller get Hello",
@@ -21,7 +21,7 @@
       },
       "response": [
         {
-          "id": "0caf51ee-4d42-426d-baa3-eaa24277f4da",
+          "id": "fc1977be-105a-438b-b21e-30b94ce58708",
           "originalRequest": {
             "url": {
               "path": [
@@ -53,6 +53,445 @@
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       }
+    },
+    {
+      "id": "a5bf1da6-e117-49d2-a37e-2cc88a5be7e4",
+      "name": "user",
+      "item": [
+        {
+          "id": "3b3ff87a-3117-4461-9d55-950e1aca6162",
+          "name": "User Controller azure Registration",
+          "request": {
+            "name": "User Controller azure Registration",
+            "description": {},
+            "url": {
+              "path": [
+                "user",
+                "azure-register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8e862bc-3179-4562-a8e6-5b6a41533fbb",
+              "name": "year registered by microsoft account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "azure-register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7aafe751-085a-486a-9dec-78645fe5abd1",
+          "name": "User Controller social Registration",
+          "request": {
+            "name": "User Controller social Registration",
+            "description": {},
+            "url": {
+              "path": [
+                "user",
+                ":provider",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "153f911b-c241-46d7-9688-f77dcbaba968",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":provider",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9b81ffe9-db56-43d6-ad14-6142b16adc58",
+      "name": "auth",
+      "item": [
+        {
+          "id": "744a3287-9ab9-4115-b192-14fc47172d2f",
+          "name": "Auth Controller azure Login",
+          "request": {
+            "name": "Auth Controller azure Login",
+            "description": {},
+            "url": {
+              "path": [
+                "auth",
+                "azure-login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d414bf6-9172-4758-b782-836de7922a97",
+              "name": "you are logged by microsoft account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "azure-login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"new\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "163175db-0ad4-490f-90e7-c59a93debee7",
+              "name": "you are not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "azure-login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Non-Authoritative Information (since HTTP/1.1)",
+              "code": 203,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1595258d-552f-44f6-b158-ed25a9ebf113",
+          "name": "{provider}",
+          "item": [
+            {
+              "id": "91a2a238-d7f0-48ea-bc02-e57603193c8a",
+              "name": "Auth Controller social Verify",
+              "request": {
+                "name": "Auth Controller social Verify",
+                "description": {},
+                "url": {
+                  "path": [
+                    "auth",
+                    ":provider",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": null
+              },
+              "response": [
+                {
+                  "id": "29907590-6d83-4e0a-b2ac-12a34067b0e5",
+                  "name": "redirect callback from social login provider google, facebook, X, apple, github, etc account",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "auth",
+                        ":provider",
+                        "verify"
+                      ],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "method": "GET",
+                    "body": {}
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": \"new\"\n}",
+                  "cookie": [],
+                  "_postman_previewlanguage": "json"
+                },
+                {
+                  "id": "55023b71-3ab1-4ec6-b790-f71ce6909220",
+                  "name": "you are not authorized",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "auth",
+                        ":provider",
+                        "verify"
+                      ],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "method": "GET",
+                    "body": {}
+                  },
+                  "status": "Non-Authoritative Information (since HTTP/1.1)",
+                  "code": 203,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "body": "",
+                  "cookie": [],
+                  "_postman_previewlanguage": "text"
+                }
+              ],
+              "event": [],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "1a58303b-d916-48c2-9d20-131c69fd45ef",
+              "name": "Auth Controller social Login",
+              "request": {
+                "name": "Auth Controller social Login",
+                "description": {},
+                "url": {
+                  "path": [
+                    "auth",
+                    ":provider",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": null
+              },
+              "response": [
+                {
+                  "id": "a8f49786-788b-4cec-b8a1-41e63fbfb230",
+                  "name": "you are logged by social like google, facebook, X, apple, github, etc. account",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "auth",
+                        ":provider",
+                        "login"
+                      ],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "method": "GET",
+                    "body": {}
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": \"new\"\n}",
+                  "cookie": [],
+                  "_postman_previewlanguage": "json"
+                },
+                {
+                  "id": "c43a9403-7e4a-49b8-9c23-298167b99a1a",
+                  "name": "you are not authorized",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "auth",
+                        ":provider",
+                        "login"
+                      ],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "method": "GET",
+                    "body": {}
+                  },
+                  "status": "Non-Authoritative Information (since HTTP/1.1)",
+                  "code": 203,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "body": "",
+                  "cookie": [],
+                  "_postman_previewlanguage": "text"
+                }
+              ],
+              "event": [],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            }
+          ],
+          "event": []
+        }
+      ],
+      "event": []
     }
   ],
   "event": [],
@@ -64,7 +503,7 @@
     }
   ],
   "info": {
-    "_postman_id": "06c719a4-4ff4-4ce7-9c88-d7708d09b58e",
+    "_postman_id": "35dc1def-8809-4fae-9800-d244b600e3d7",
     "name": "authentication-v2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {

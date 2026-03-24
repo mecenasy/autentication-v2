@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { verify2faCommands } from './folders/commands/handler';
+import { verify2faCommands } from './commands/handler';
 import { Verify2faCodeResolver } from './tfa-command.resolver';
 import { CqrsModule } from '@nestjs/cqrs';
 

@@ -7,6 +7,7 @@ service UserProxyService {
   rpc CreateSocialUser (CreateSocialUserRequest) returns (SocialUserResponse);
   rpc CheckExist(CheckExistRequest) returns (CheckExistResponse);
   rpc FindUserById(FindUserByIdRequest) returns (UserResponse);
+  rpc FindSocialUser(FindSocialUserRequest) returns (UserResponse);
   rpc FindUser(FindUserRequest) returns (UserResponse);
 }
 
@@ -47,4 +48,11 @@ message FindUserByIdRequest {
 
 message FindUserRequest {
   string email = 1;
+}
+
+message FindSocialUserRequest {
+  string provider = 1;
+  string providerId = 2;
+  string email = 3;
+  string name = 4;
 }

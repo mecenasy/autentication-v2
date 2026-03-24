@@ -2,16 +2,18 @@ import { CommandHandler } from '@nestjs/cqrs';
 import { lastValueFrom } from 'rxjs';
 import { Handler } from 'src/common/handler/handler';
 import {
-  SocialUserResponse,
   USER_PROXY_SERVICE_NAME,
   UserProxyServiceClient,
 } from 'src/proto/user';
 import { CreateSocialUserCommand } from '../impl/create-social-user.command';
+import { StatusResponse } from '../../../auth/login/response/status.response';
+import { AuthStatus } from 'src/au/auth/types/login-status';
+import { InternalServerErrorException } from '@nestjs/common';
 
 @CommandHandler(CreateSocialUserCommand)
 export class CreateSocialUserHandler extends Handler<
   CreateSocialUserCommand,
-  SocialUserResponse,
+  StatusResponse,
   UserProxyServiceClient
 > {
   constructor() {
@@ -19,7 +21,7 @@ export class CreateSocialUserHandler extends Handler<
   }
 
   async execute(command: CreateSocialUserCommand) {
-    const { user: userToCreate } = command;
+    const { user: userToCreate, session } = command;
     this.logger.log(userToCreate);
 
     const user = await lastValueFrom(
@@ -33,6 +35,19 @@ export class CreateSocialUserHandler extends Handler<
       prefix: 'user',
     });
 
-    return user;
+    session.user_id = user.id;
+
+    await new Promise<void>((resolve, reject) => {
+      session.save((err) => {
+        if (err) {
+          reject(new InternalServerErrorException('Failed to save session.'));
+          this.logger.error(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    return { status: AuthStatus.login };
   }
 }

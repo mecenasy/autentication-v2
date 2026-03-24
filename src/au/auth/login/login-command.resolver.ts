@@ -14,6 +14,12 @@ import { ResetPasswordType } from './dto/reset-password.tape';
 import { ResetPasswordCommand } from './commands/impl/reset-password.command';
 import { ForgotPasswordCommand } from './commands/impl/forgot-password.command';
 import { ForgotPasswordType } from './dto/forgot-password.tape';
+import { UseGuards } from '@nestjs/common';
+import { AzureGqlAuthGuard } from 'src/common/guards/azure-gpl.guard';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import type { SocialUser } from 'src/libs/utils/is-social-user';
+import { VerificationTokenCommand } from './commands/impl/verification-token.command';
+import { SocialLoginCommand } from './commands/impl/social-login.command';
 
 @Resolver('Login')
 export class LoginCommandsResolver {
@@ -60,6 +66,29 @@ export class LoginCommandsResolver {
   async forgotPassword(@Args('input') input: ForgotPasswordType) {
     return this.commandBus.execute<ForgotPasswordCommand, StatusType>(
       new ForgotPasswordCommand(input.email),
+    );
+  }
+
+  @Public()
+  @Mutation(() => StatusType)
+  @UseGuards(AzureGqlAuthGuard)
+  async azureLogin(
+    @CurrentUser() user: SocialUser,
+    @Context() ctx: express.Response,
+  ) {
+    return this.commandBus.execute<SocialLoginCommand, StatusType>(
+      new SocialLoginCommand(user, ctx.req.session),
+    );
+  }
+
+  @Public()
+  @Mutation(() => StatusType)
+  async verificationToken(
+    @Args('token') token: string,
+    @Context() ctx: express.Response,
+  ) {
+    return this.commandBus.execute<VerificationTokenCommand, StatusType>(
+      new VerificationTokenCommand(token, ctx.req.session),
     );
   }
 }

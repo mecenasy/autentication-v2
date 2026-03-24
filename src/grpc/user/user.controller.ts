@@ -10,6 +10,7 @@ import type {
   CheckExistResponse,
   FindUserByIdRequest,
   FindUserRequest,
+  FindSocialUserRequest,
 } from 'src/proto/user';
 import { USER_PROXY_SERVICE_NAME } from 'src/proto/user';
 import { UserGrpcService } from './user.service';
@@ -43,5 +44,10 @@ export class UserGrpcController implements UserProxyServiceController {
   @GrpcMethod(USER_PROXY_SERVICE_NAME, 'FindUser')
   async findUser({ email }: FindUserRequest): Promise<UserResponse> {
     return await this.userService.findUserByEmail(email);
+  }
+
+  @GrpcMethod(USER_PROXY_SERVICE_NAME, 'FindSocialUser')
+  async findSocialUser(user: FindSocialUserRequest): Promise<UserResponse> {
+    return await this.userService.findSocialUser(user);
   }
 }

@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import express from 'express';
 
 export interface Context {
-  req: Request;
-  res: Response;
+  req: express.Request;
+  res: express.Response;
 }

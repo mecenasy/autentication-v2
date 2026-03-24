@@ -5,6 +5,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { loginQueries } from './queries/handler';
 import { LoginQueriesResolver } from './login-query.resolver';
 import { TypeConfigService } from 'src/configs/types.config.service';
+import { AuthController } from './login.controller';
 
 @Module({
   imports: [CqrsModule],
@@ -15,5 +16,6 @@ import { TypeConfigService } from 'src/configs/types.config.service';
     LoginQueriesResolver,
     TypeConfigService,
   ],
+  controllers: [AuthController],
 })
 export class LoginModule {}

@@ -3,8 +3,8 @@ import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { StatusType } from '../login/dto/status.type';
 import express from 'express';
 import { Public } from 'src/common/decorators/public.decorator';
-import { Verify2faCodeCommand } from './folders/commands/impl/verify-2fa-code.command';
-import { Verify2faCodeType } from './folders/dto/verify-2fa-code.type';
+import { Verify2faCodeCommand } from './commands/impl/verify-2fa-code.command';
+import { Verify2faCodeType } from './dto/verify-2fa-code.type';
 
 @Resolver('Verify2faCode')
 export class Verify2faCodeResolver {

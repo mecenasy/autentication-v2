@@ -50,6 +50,13 @@ export interface FindUserRequest {
   email: string;
 }
 
+export interface FindSocialUserRequest {
+  provider: string;
+  providerId: string;
+  email: string;
+  name: string;
+}
+
 export const USER_PACKAGE_NAME = 'user';
 
 export interface UserProxyServiceClient {
@@ -70,6 +77,11 @@ export interface UserProxyServiceClient {
 
   findUserById(
     request: FindUserByIdRequest,
+    metadata?: Metadata,
+  ): Observable<UserResponse>;
+
+  findSocialUser(
+    request: FindSocialUserRequest,
     metadata?: Metadata,
   ): Observable<UserResponse>;
 
@@ -106,6 +118,11 @@ export interface UserProxyServiceController {
     metadata?: Metadata,
   ): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
 
+  findSocialUser(
+    request: FindSocialUserRequest,
+    metadata?: Metadata,
+  ): Promise<UserResponse> | Observable<UserResponse> | UserResponse;
+
   findUser(
     request: FindUserRequest,
     metadata?: Metadata,
@@ -119,6 +136,7 @@ export function UserProxyServiceControllerMethods() {
       'createSocialUser',
       'checkExist',
       'findUserById',
+      'findSocialUser',
       'findUser',
     ];
     for (const method of grpcMethods) {

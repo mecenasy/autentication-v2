@@ -44,12 +44,6 @@ input CreateSocialConfigDto {
   secret: String!
 }
 
-input CreateSocialUserType {
-  email: String!
-  provider: String!
-  providerId: String!
-}
-
 input CreateUserType {
   email: String!
   password: String!
@@ -79,9 +73,9 @@ input LoginType {
 type Mutation {
   accept2fa: AcceptType!
   activeSocialConfig(id: String!): ActiveSocialConfigType!
+  azureLogin: StatusType!
   changePassword(input: ChangePasswordType!): StatusType!
   createSocialConfig(input: CreateSocialConfigDto!): SocialConfigType!
-  createSocialUser(input: CreateSocialUserType!): UserType!
   createUser(input: CreateUserType!): UserType!
   deleteSocialConfig(id: String!): DeleteSocialConfigType!
   forgotPassword(input: ForgotPasswordType!): StatusType!
@@ -90,6 +84,7 @@ type Mutation {
   reject2fa: StatusType!
   resetPassword(input: ResetPasswordType!): StatusType!
   updateSocialConfig(config: UpdateSocialConfigDto!, id: String!): SocialConfigType!
+  verificationToken(token: String!): StatusType!
   verify2fa(code: String!): StatusType!
   verify2faCode(input: Verify2faCodeType!): StatusType!
   verifyMfa(input: VerifyCodeType!): StatusType!

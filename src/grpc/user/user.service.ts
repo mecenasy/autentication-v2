@@ -7,6 +7,7 @@ import { SocialAccountsService } from './social-accounts/social-accounts.service
 import type {
   CreateSocialUserRequest,
   CreateUserRequest,
+  FindSocialUserRequest,
   SocialUserResponse,
   UserResponse,
 } from 'src/proto/user';
@@ -61,6 +62,7 @@ export class UserGrpcService {
       user = this.userRepository.create({
         email,
         socialAccounts: [],
+        userSettings: this.userSettingsService.create(),
       });
     }
     const hasProvider = user.socialAccounts.some(
@@ -118,19 +120,27 @@ export class UserGrpcService {
     );
   }
 
-  // public async findSocialUser({
-  //   email,
-  //   provider,
-  //   providerId,
-  // }: SocialUser): Promise<User> {
-  //   return await this.userRepository
-  //     .createQueryBuilder('user')
-  //     .leftJoin('user.socialAccounts', 'social')
-  //     .where('user.email = :email', { email })
-  //     .andWhere('social.provider = :provider', { provider })
-  //     .andWhere('social.providerId = :providerId', { providerId })
-  //     .getOneOrFail();
-  // }
+  public async findSocialUser({
+    email,
+    provider,
+    providerId,
+  }: FindSocialUserRequest): Promise<User | UserResponse> {
+    const result = await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoin('user.socialAccounts', 'social')
+      .where('user.email = :email', { email })
+      .andWhere('social.provider = :provider', { provider })
+      .andWhere('social.providerId = :providerId', { providerId })
+      .getOne();
+
+    return (
+      result || {
+        id: '',
+        email: '',
+        phone: '',
+      }
+    );
+  }
 
   public async findUserWithPassword(login: string) {
     return await this.userRepository
@@ -166,13 +176,13 @@ export class UserGrpcService {
       .getOneOrFail();
   }
 
-  // public async findUseWithPasskeyById(userId: string) {
-  //   return await this.userRepository
-  //     .createQueryBuilder('user')
-  //     .leftJoinAndSelect('user.passkey', 'passkey')
-  //     .where('user.id = :id', { id: userId })
-  //     .getOneOrFail();
-  // }
+  public async findUseWithPasskeyById(userId: string) {
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.passkey', 'passkey')
+      .where('user.id = :id', { id: userId })
+      .getOneOrFail();
+  }
 
   public async save(user: User): Promise<User> {
     return await this.userRepository.save(user);

@@ -1,9 +1,13 @@
 import { Command } from '@nestjs/cqrs';
-import { SocialUserResponse } from 'src/proto/user';
 import { CreateSocialUserType } from 'src/au/user/dto/create-social-user.type';
+import { StatusResponse } from '../../../auth/login/response/status.response';
+import { SessionData } from 'express-session';
 
-export class CreateSocialUserCommand extends Command<SocialUserResponse> {
-  constructor(public readonly user: CreateSocialUserType) {
+export class CreateSocialUserCommand extends Command<StatusResponse> {
+  constructor(
+    public readonly user: CreateSocialUserType,
+    public readonly session: SessionData,
+  ) {
     super();
   }
 }
