@@ -63,7 +63,7 @@ export class UserSettingsService {
     id,
   }: AdaptiveRequest): Promise<AdaptiveResponse> {
     const user = await this.userService.findUserSettingsById(id);
-    const active = user.userSettings.isAdaptiveAuthEnabled;
+    const active = !user.userSettings.isAdaptiveAuthEnabled;
     user.userSettings.isAdaptiveAuthEnabled = active;
 
     await this.userService.save(user);

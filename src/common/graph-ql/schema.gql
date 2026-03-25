@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AcceptAdaptiveLoginType {
+  active: Boolean!
+}
+
 type AcceptType {
   dataUrl: String!
   status: AuthStatus!
@@ -73,7 +77,7 @@ input LoginType {
 type Mutation {
   accept2fa: AcceptType!
   activeSocialConfig(id: String!): ActiveSocialConfigType!
-  adaptiveLogin: StatusType!
+  adaptiveLogin: AcceptAdaptiveLoginType!
   azureLogin: StatusType!
   changePassword(input: ChangePasswordType!): StatusType!
   createSocialConfig(input: CreateSocialConfigDto!): SocialConfigType!
@@ -83,12 +87,20 @@ type Mutation {
   loginUser(input: LoginType!): StatusType!
   logoutUser: StatusType!
   reject2fa: StatusType!
+  removePasskey(id: String!): RemovePasskeyType!
   resetPassword(input: ResetPasswordType!): StatusType!
   updateSocialConfig(config: UpdateSocialConfigDto!, id: String!): SocialConfigType!
   verificationToken(token: String!): StatusType!
   verify2fa(code: String!): StatusType!
   verify2faCode(input: Verify2faCodeType!): StatusType!
   verifyMfa(input: VerifyCodeType!): StatusType!
+}
+
+type PassKeyType {
+  createAt: String!
+  credentialID: String!
+  deviceName: String!
+  id: String!
 }
 
 enum Provider {
@@ -104,8 +116,13 @@ type Query {
   _ping: Boolean
   getAllConfig: SocialConfigsType!
   getConfig(id: String!): SocialConfigType!
+  getPasskeys: [PassKeyType!]!
   loginStatus: LoginStatusType!
   verifyToken(token: String!): VerifyTokenType!
+}
+
+type RemovePasskeyType {
+  status: Boolean!
 }
 
 input ResetPasswordType {

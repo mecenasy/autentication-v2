@@ -48,10 +48,12 @@ export class LoginHandler extends Handler<
         user.history,
         security,
       );
+
       if (risk.score <= 40) {
         return { status: AuthStatus.login, score: risk.score };
       }
     }
+
     if (user.is2fa) {
       return { status: AuthStatus.tfa };
     }

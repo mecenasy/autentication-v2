@@ -6,7 +6,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { Handler } from 'src/common/handler/handler';
 
 @CommandHandler(LogoutCommand)
-export class LogoutHandler extends Handler<LogoutCommand, StatusType, any> {
+export class LogoutHandler extends Handler<LogoutCommand, StatusType> {
   constructor() {
     super();
   }

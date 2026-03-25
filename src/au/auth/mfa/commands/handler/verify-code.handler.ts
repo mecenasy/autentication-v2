@@ -7,11 +7,7 @@ import { LoginCache } from 'src/au/auth/types/cache-data';
 import { InternalServerErrorException } from '@nestjs/common';
 
 @CommandHandler(VerifyCodeCommand)
-export class VerifyCodeHandler extends Handler<
-  VerifyCodeCommand,
-  StatusType,
-  any
-> {
+export class VerifyCodeHandler extends Handler<VerifyCodeCommand, StatusType> {
   constructor() {
     super();
   }

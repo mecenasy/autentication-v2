@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import {
-  AdaptiveRequest,
+  type AdaptiveRequest,
   AdaptiveResponse,
   SETTINGS_PROXY_SERVICE_NAME,
   SettingsProxyServiceController,
@@ -25,6 +25,7 @@ export class UserSettingsController implements SettingsProxyServiceController {
     return await this.userSettingsService.verify2fa(id, secret);
   }
 
+  @GrpcMethod(SETTINGS_PROXY_SERVICE_NAME, 'acceptAdaptive')
   async acceptAdaptive(request: AdaptiveRequest): Promise<AdaptiveResponse> {
     return await this.userSettingsService.acceptAdaptive(request);
   }

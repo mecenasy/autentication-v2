@@ -5,12 +5,12 @@
 // source: src/proto/social-config.proto
 
 /* eslint-disable */
-import type { Metadata } from '@grpc/grpc-js';
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
-import { Empty } from '../../google/protobuf/empty';
+import type { Metadata } from "@grpc/grpc-js";
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
+import { Empty } from "../../google/protobuf/empty";
 
-export const protobufPackage = 'socialConfig';
+export const protobufPackage = "socialConfig";
 
 export interface FindAllSocialConfigsResponse {
   socialConfigs: SocialConfigResponse[];
@@ -65,124 +65,74 @@ export interface ActiveSocialConfigResponse {
   id: string;
 }
 
-export const SOCIAL_CONFIG_PACKAGE_NAME = 'socialConfig';
+export const SOCIAL_CONFIG_PACKAGE_NAME = "socialConfig";
 
 export interface SocialConfigProxyServiceClient {
-  findAllSocialConfigs(
-    request: Empty,
-    metadata?: Metadata,
-  ): Observable<FindAllSocialConfigsResponse>;
+  findAllSocialConfigs(request: Empty, metadata?: Metadata): Observable<FindAllSocialConfigsResponse>;
 
-  createSocialConfig(
-    request: CreateSocialConfigRequest,
-    metadata?: Metadata,
-  ): Observable<SocialConfigResponse>;
+  createSocialConfig(request: CreateSocialConfigRequest, metadata?: Metadata): Observable<SocialConfigResponse>;
 
-  updateSocialConfig(
-    request: UpdateSocialConfigRequest,
-    metadata?: Metadata,
-  ): Observable<SocialConfigResponse>;
+  updateSocialConfig(request: UpdateSocialConfigRequest, metadata?: Metadata): Observable<SocialConfigResponse>;
 
-  deleteSocialConfig(
-    request: DeleteSocialConfigRequest,
-    metadata?: Metadata,
-  ): Observable<DeleteSocialConfigResponse>;
+  deleteSocialConfig(request: DeleteSocialConfigRequest, metadata?: Metadata): Observable<DeleteSocialConfigResponse>;
 
-  getSocialConfig(
-    request: GetSocialConfigRequest,
-    metadata?: Metadata,
-  ): Observable<SocialConfigResponse>;
+  getSocialConfig(request: GetSocialConfigRequest, metadata?: Metadata): Observable<SocialConfigResponse>;
 
-  activeSocialConfig(
-    request: ActiveSocialConfigRequest,
-    metadata?: Metadata,
-  ): Observable<ActiveSocialConfigResponse>;
+  activeSocialConfig(request: ActiveSocialConfigRequest, metadata?: Metadata): Observable<ActiveSocialConfigResponse>;
 }
 
 export interface SocialConfigProxyServiceController {
   findAllSocialConfigs(
     request: Empty,
     metadata?: Metadata,
-  ):
-    | Promise<FindAllSocialConfigsResponse>
-    | Observable<FindAllSocialConfigsResponse>
-    | FindAllSocialConfigsResponse;
+  ): Promise<FindAllSocialConfigsResponse> | Observable<FindAllSocialConfigsResponse> | FindAllSocialConfigsResponse;
 
   createSocialConfig(
     request: CreateSocialConfigRequest,
     metadata?: Metadata,
-  ):
-    | Promise<SocialConfigResponse>
-    | Observable<SocialConfigResponse>
-    | SocialConfigResponse;
+  ): Promise<SocialConfigResponse> | Observable<SocialConfigResponse> | SocialConfigResponse;
 
   updateSocialConfig(
     request: UpdateSocialConfigRequest,
     metadata?: Metadata,
-  ):
-    | Promise<SocialConfigResponse>
-    | Observable<SocialConfigResponse>
-    | SocialConfigResponse;
+  ): Promise<SocialConfigResponse> | Observable<SocialConfigResponse> | SocialConfigResponse;
 
   deleteSocialConfig(
     request: DeleteSocialConfigRequest,
     metadata?: Metadata,
-  ):
-    | Promise<DeleteSocialConfigResponse>
-    | Observable<DeleteSocialConfigResponse>
-    | DeleteSocialConfigResponse;
+  ): Promise<DeleteSocialConfigResponse> | Observable<DeleteSocialConfigResponse> | DeleteSocialConfigResponse;
 
   getSocialConfig(
     request: GetSocialConfigRequest,
     metadata?: Metadata,
-  ):
-    | Promise<SocialConfigResponse>
-    | Observable<SocialConfigResponse>
-    | SocialConfigResponse;
+  ): Promise<SocialConfigResponse> | Observable<SocialConfigResponse> | SocialConfigResponse;
 
   activeSocialConfig(
     request: ActiveSocialConfigRequest,
     metadata?: Metadata,
-  ):
-    | Promise<ActiveSocialConfigResponse>
-    | Observable<ActiveSocialConfigResponse>
-    | ActiveSocialConfigResponse;
+  ): Promise<ActiveSocialConfigResponse> | Observable<ActiveSocialConfigResponse> | ActiveSocialConfigResponse;
 }
 
 export function SocialConfigProxyServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
-      'findAllSocialConfigs',
-      'createSocialConfig',
-      'updateSocialConfig',
-      'deleteSocialConfig',
-      'getSocialConfig',
-      'activeSocialConfig',
+      "findAllSocialConfigs",
+      "createSocialConfig",
+      "updateSocialConfig",
+      "deleteSocialConfig",
+      "getSocialConfig",
+      "activeSocialConfig",
     ];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcMethod('SocialConfigProxyService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("SocialConfigProxyService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcStreamMethod('SocialConfigProxyService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("SocialConfigProxyService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const SOCIAL_CONFIG_PROXY_SERVICE_NAME = 'SocialConfigProxyService';
+export const SOCIAL_CONFIG_PROXY_SERVICE_NAME = "SocialConfigProxyService";

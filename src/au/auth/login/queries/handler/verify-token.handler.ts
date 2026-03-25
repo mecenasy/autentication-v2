@@ -7,8 +7,7 @@ import { VerifyTokenType } from '../../dto/verify-token.type';
 @QueryHandler(VerifyTokenQuery)
 export class VerifyTokensHandler extends Handler<
   VerifyTokenQuery,
-  VerifyTokenType,
-  any
+  VerifyTokenType
 > {
   constructor() {
     super();

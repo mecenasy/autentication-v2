@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Password } from '../password/entity/password.entity';
 import { SocialAccounts } from '../social-accounts/entity/social-accounts.entity';
-import { PassKey } from 'src/common/postgres/entity/passkey.entity';
+import { PassKey } from 'src/grpc/auth/passkey/entity/passkey.entity';
 import { ProjectAuth } from 'src/common/postgres/entity/project-auth.entity';
 import { UserSettings } from '../user-settings/entity/user-settings.entity';
 import { History } from 'src/grpc/user/history/entity/history.entity';

@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "a6d40ac3-6e52-4bf2-bbdb-09f0f3420737",
+      "id": "0cf2c53c-55c7-42e9-be97-b0f2fcc024f2",
       "name": "App Controller get Hello",
       "request": {
         "name": "App Controller get Hello",
@@ -21,7 +21,7 @@
       },
       "response": [
         {
-          "id": "5597d4c0-e337-4f56-9bbe-ccc19fb2b0c6",
+          "id": "8d8c3dc9-fb79-485c-91ff-cbe66aa11bcb",
           "originalRequest": {
             "url": {
               "path": [
@@ -55,11 +55,11 @@
       }
     },
     {
-      "id": "966f7752-92ad-4c63-b54d-5a7048ff26ec",
+      "id": "1350a240-6c33-4bcd-b9bd-d4a769dfbce1",
       "name": "user",
       "item": [
         {
-          "id": "e9c0e589-8b63-4189-aa85-00985b1d082c",
+          "id": "2b019d3a-d642-47d1-99af-34631da6187c",
           "name": "User Controller azure Registration",
           "request": {
             "name": "User Controller azure Registration",
@@ -80,7 +80,7 @@
           },
           "response": [
             {
-              "id": "b4f48c10-cbaa-4fc7-93fc-21fc26156f4a",
+              "id": "46da5e5e-da72-4c92-955e-f53c3db8b764",
               "name": "year registered by microsoft account",
               "originalRequest": {
                 "url": {
@@ -116,7 +116,7 @@
           }
         },
         {
-          "id": "87ff2442-5b56-4f7f-85ca-20784e16381d",
+          "id": "bb18cea0-3662-4e3a-b560-c70946a0b8e4",
           "name": "User Controller social Registration",
           "request": {
             "name": "User Controller social Registration",
@@ -138,7 +138,7 @@
           },
           "response": [
             {
-              "id": "a16ddd9e-a5af-48cb-be6a-e8681b9ea521",
+              "id": "eece3144-b852-439e-85e7-361ae1c61155",
               "originalRequest": {
                 "url": {
                   "path": [
@@ -177,11 +177,11 @@
       "event": []
     },
     {
-      "id": "5cfb4b9d-e327-4811-b40a-b1741b6022e0",
+      "id": "ad045b52-08bd-40bd-b31e-9b067a992a4a",
       "name": "auth",
       "item": [
         {
-          "id": "ac68f4a1-bc9b-4644-8102-71f0c3c4dcdf",
+          "id": "38e10fae-cd49-4626-b383-de690676d6ec",
           "name": "Auth Controller azure Login",
           "request": {
             "name": "Auth Controller azure Login",
@@ -208,7 +208,7 @@
           },
           "response": [
             {
-              "id": "0943e780-2050-44bd-9c03-e5b6d88b6228",
+              "id": "e4d88ac3-db67-472a-b767-fe9795acf17d",
               "name": "you are logged by microsoft account",
               "originalRequest": {
                 "url": {
@@ -244,7 +244,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7f1bff45-3ec0-4ffc-8111-618f7cf9476a",
+              "id": "76b2ec6a-aef9-4d5a-9706-32af10daafd2",
               "name": "you are not authorized",
               "originalRequest": {
                 "url": {
@@ -280,11 +280,11 @@
           }
         },
         {
-          "id": "856e0ade-a23a-44e2-b2ab-67664f582804",
+          "id": "70829e7d-c126-40c2-a250-84518b79de47",
           "name": "{provider}",
           "item": [
             {
-              "id": "172a081f-ee48-4a9f-a404-533a6107e971",
+              "id": "dc16bb3d-49b9-4275-ba08-014943ab8400",
               "name": "Auth Controller social Verify",
               "request": {
                 "name": "Auth Controller social Verify",
@@ -312,7 +312,7 @@
               },
               "response": [
                 {
-                  "id": "5e739297-eace-42e9-a34d-2202fd75dd4e",
+                  "id": "9cdcc32b-5731-4a66-a8fb-7554deae7885",
                   "name": "redirect callback from social login provider google, facebook, X, apple, github, etc account",
                   "originalRequest": {
                     "url": {
@@ -349,7 +349,7 @@
                   "_postman_previewlanguage": "json"
                 },
                 {
-                  "id": "768cd113-191a-440b-83f6-6a102ecd7a58",
+                  "id": "a2b477b4-fd38-44d6-9ee4-42edc44763a5",
                   "name": "you are not authorized",
                   "originalRequest": {
                     "url": {
@@ -386,7 +386,7 @@
               }
             },
             {
-              "id": "11cd3776-1d0a-4a52-8e21-3611fcf36a6a",
+              "id": "336c7950-c1b5-4842-8915-a4737006d568",
               "name": "Auth Controller social Login",
               "request": {
                 "name": "Auth Controller social Login",
@@ -414,7 +414,7 @@
               },
               "response": [
                 {
-                  "id": "1b63cc62-65e2-4cdc-8f14-16c667e523a2",
+                  "id": "44787183-7c52-4a0a-9c3b-a9f2f84019bf",
                   "name": "you are logged by social like google, facebook, X, apple, github, etc. account",
                   "originalRequest": {
                     "url": {
@@ -451,7 +451,7 @@
                   "_postman_previewlanguage": "json"
                 },
                 {
-                  "id": "fbf42359-7d07-4667-97d7-45995713694b",
+                  "id": "6c7907fc-3c09-40d7-ad30-3f44a9cf3a00",
                   "name": "you are not authorized",
                   "originalRequest": {
                     "url": {
@@ -492,6 +492,265 @@
         }
       ],
       "event": []
+    },
+    {
+      "id": "1570d616-85b8-473b-9e73-e9b928c7499f",
+      "name": "passkey/biometrics",
+      "item": [
+        {
+          "id": "e9879257-c2ea-4850-95f0-22de5b55dde3",
+          "name": "Passkey Controller get Register O Face Id",
+          "request": {
+            "name": "Passkey Controller get Register O Face Id",
+            "description": {},
+            "url": {
+              "path": [
+                "passkey",
+                "biometrics",
+                "register-options"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6f253b4-7738-46fd-98ba-65217009ab09",
+              "name": "ger registration options for pass key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "passkey",
+                    "biometrics",
+                    "register-options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "097d9199-9c65-43c0-bcb8-e3ff3a24417a",
+          "name": "Passkey Controller verify Registration",
+          "request": {
+            "name": "Passkey Controller verify Registration",
+            "description": {},
+            "url": {
+              "path": [
+                "passkey",
+                "biometrics",
+                "verify-registration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "user-agent",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68d19b4f-5de8-4b08-96c9-0c1a8705a62f",
+              "name": "verification pass key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "passkey",
+                    "biometrics",
+                    "verify-registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "user-agent",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ba1beb3-e8df-469b-aa44-e74959152829",
+          "name": "Passkey Controller login Options",
+          "request": {
+            "name": "Passkey Controller login Options",
+            "description": {},
+            "url": {
+              "path": [
+                "passkey",
+                "biometrics",
+                "options"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b260eac5-588a-4de9-b05d-83df9cc4ef61",
+              "name": "get login options for pass key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "passkey",
+                    "biometrics",
+                    "options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd18a7a1-2c13-4b27-aee8-9d60d53b416f",
+          "name": "Passkey Controller login Verify",
+          "request": {
+            "name": "Passkey Controller login Verify",
+            "description": {},
+            "url": {
+              "path": [
+                "passkey",
+                "biometrics",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bea44cb7-b5f1-469d-a3d7-0f557cb14237",
+              "name": "verification login by pass key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "passkey",
+                    "biometrics",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
     }
   ],
   "event": [],
@@ -503,7 +762,7 @@
     }
   ],
   "info": {
-    "_postman_id": "85881845-6f5a-4d97-8da8-ab420d2fe93b",
+    "_postman_id": "9e99bb3e-7205-4865-8657-4242d6478722",
     "name": "authentication-v2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {

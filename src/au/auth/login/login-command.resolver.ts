@@ -16,7 +16,7 @@ import { ForgotPasswordCommand } from './commands/impl/forgot-password.command';
 import { ForgotPasswordType } from './dto/forgot-password.tape';
 import { UseGuards, UseInterceptors } from '@nestjs/common';
 import { AzureGqlAuthGuard } from 'src/common/guards/azure-gpl.guard';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { CurrentUserGpl } from 'src/common/decorators/current-user-gpl.decorator';
 import type { SocialUser } from 'src/libs/utils/is-social-user';
 import { VerificationTokenCommand } from './commands/impl/verification-token.command';
 import { SocialLoginCommand } from './commands/impl/social-login.command';
@@ -82,7 +82,7 @@ export class LoginCommandsResolver {
   @Mutation(() => StatusType)
   @UseGuards(AzureGqlAuthGuard)
   async azureLogin(
-    @CurrentUser() user: SocialUser,
+    @CurrentUserGpl() user: SocialUser,
     @Context() ctx: express.Response,
   ) {
     return this.commandBus.execute<SocialLoginCommand, StatusType>(
