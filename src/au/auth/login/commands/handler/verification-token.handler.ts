@@ -1,10 +1,7 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { AuthStatus } from 'src/au/auth/types/login-status';
 import { StatusType } from '../../dto/status.type';
-import {
-  BadRequestException,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { Handler } from 'src/common/handler/handler';
 import { lastValueFrom } from 'rxjs';
 import { VerificationTokenCommand } from '../impl/verification-token.command';
@@ -12,6 +9,7 @@ import {
   USER_PROXY_SERVICE_NAME,
   UserProxyServiceClient,
 } from 'src/proto/user';
+import { saveSession } from 'src/au/auth/helpers/save-session';
 
 @CommandHandler(VerificationTokenCommand)
 export class VerificationTokenHandler extends Handler<
@@ -41,16 +39,8 @@ export class VerificationTokenHandler extends Handler<
       prefix: 'verify-token',
     });
 
-    await new Promise<void>((resolve, reject) => {
-      session.save((err) => {
-        if (err) {
-          reject(new InternalServerErrorException('Failed to save session.'));
-          this.logger.error(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    await saveSession(session, this.logger);
+
     return { status: AuthStatus.login };
   }
 }

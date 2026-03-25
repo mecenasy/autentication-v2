@@ -2,10 +2,7 @@ import { Command } from '@nestjs/cqrs';
 import { PublicKeyCredentialCreationOptionsJSON } from '@simplewebauthn/server';
 
 export class RegisterPasskeyOptionCommand extends Command<PublicKeyCredentialCreationOptionsJSON> {
-  constructor(
-    public readonly userId: string,
-    public readonly email: string,
-  ) {
+  constructor(public readonly userId: string) {
     super();
   }
 }

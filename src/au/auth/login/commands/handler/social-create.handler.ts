@@ -1,7 +1,6 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { AuthStatus } from 'src/au/auth/types/login-status';
 import { StatusType } from '../../dto/status.type';
-import { InternalServerErrorException } from '@nestjs/common';
 import { Handler } from 'src/common/handler/handler';
 import { lastValueFrom } from 'rxjs';
 import { SocialCreateCommand } from '../impl/social-create.command';
@@ -9,6 +8,7 @@ import {
   USER_PROXY_SERVICE_NAME,
   UserProxyServiceClient,
 } from 'src/proto/user';
+import { saveSession } from 'src/au/auth/helpers/save-session';
 
 @CommandHandler(SocialCreateCommand)
 export class CreateUserHandler extends Handler<
@@ -25,16 +25,7 @@ export class CreateUserHandler extends Handler<
 
     session.user_id = result.id;
 
-    await new Promise<void>((resolve, reject) => {
-      session.save((err) => {
-        if (err) {
-          reject(new InternalServerErrorException('Failed to save session.'));
-          this.logger.error(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    await saveSession(session, this.logger);
 
     return { status: AuthStatus.login };
   }

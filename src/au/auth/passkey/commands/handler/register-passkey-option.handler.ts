@@ -7,6 +7,7 @@ import {
 } from '@simplewebauthn/server';
 import { TypeConfigService } from 'src/configs/types.config.service';
 import { AppConfig } from 'src/configs/app.configs';
+import { LoginStatusType } from 'src/au/auth/login/dto/login-status.tape';
 
 @CommandHandler(RegisterPasskeyOptionCommand)
 export class RegisterPasskeyOptionHandler extends Handler<
@@ -22,14 +23,18 @@ export class RegisterPasskeyOptionHandler extends Handler<
   }
 
   async execute({
-    email,
     userId,
   }: RegisterPasskeyOptionCommand): Promise<PublicKeyCredentialCreationOptionsJSON> {
+    const user = await this.cache.getFromCache<LoginStatusType['user']>({
+      identifier: userId,
+      prefix: 'user-state',
+    });
+
     const options = await generateRegistrationOptions({
       rpName: 'Autenticator',
       rpID: this.clientUrl?.replace('https://', ''),
       userID: Buffer.from(userId),
-      userName: email,
+      userName: user?.email ?? '',
       attestationType: 'none',
       authenticatorSelection: {
         residentKey: 'required',

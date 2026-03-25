@@ -1,10 +1,10 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { Handler } from 'src/common/handler/handler';
 import { PasskeyOptionCommand } from '../impl/passkey-option.command';
-import { generateAuthenticationOptions } from '@simplewebauthn/server';
-import { InternalServerErrorException } from '@nestjs/common';
 import { TypeConfigService } from 'src/configs/types.config.service';
 import { AppConfig } from 'src/configs/app.configs';
+import { generateOption } from '../../helpers/option';
+import { saveSession } from 'src/au/auth/helpers/save-session';
 
 @CommandHandler(PasskeyOptionCommand)
 export class PasskeyOptionHandler extends Handler<
@@ -22,24 +22,12 @@ export class PasskeyOptionHandler extends Handler<
   async execute({
     session,
   }: PasskeyOptionCommand): Promise<PublicKeyCredentialRequestOptionsJSON> {
-    const options = await generateAuthenticationOptions({
-      rpID: this.clientUrl?.replace('https://', ''),
-      allowCredentials: [],
-      userVerification: 'required',
-    });
+    const options = await generateOption(this.clientUrl ?? '');
 
     session.currentChallenge = options.challenge;
 
-    await new Promise<void>((resolve, reject) => {
-      session.save((err) => {
-        if (err) {
-          reject(new InternalServerErrorException('Failed to save session.'));
-          this.logger.error(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    await saveSession(session, this.logger);
+
     return options;
   }
 }

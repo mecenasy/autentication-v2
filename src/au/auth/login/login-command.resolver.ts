@@ -16,7 +16,6 @@ import { ForgotPasswordCommand } from './commands/impl/forgot-password.command';
 import { ForgotPasswordType } from './dto/forgot-password.tape';
 import { UseGuards, UseInterceptors } from '@nestjs/common';
 import { AzureGqlAuthGuard } from 'src/common/guards/azure-gpl.guard';
-import { CurrentUserGpl } from 'src/common/decorators/current-user-gpl.decorator';
 import type { SocialUser } from 'src/libs/utils/is-social-user';
 import { VerificationTokenCommand } from './commands/impl/verification-token.command';
 import { SocialLoginCommand } from './commands/impl/social-login.command';
@@ -25,6 +24,7 @@ import {
   SecurityContextInterceptor,
 } from 'src/common/interceptors/security-context.interceptor';
 import { SecurityContext } from 'src/common/decorators/security-context.decorator';
+import { CurrentUserGpl } from 'src/common/decorators/current-user-gpl.decorator';
 
 @Resolver('Login')
 @UseInterceptors(SecurityContextInterceptor)

@@ -8,7 +8,7 @@ import {
 import { CreateSocialUserCommand } from '../impl/create-social-user.command';
 import { StatusResponse } from '../../../auth/login/response/status.response';
 import { AuthStatus } from 'src/au/auth/types/login-status';
-import { InternalServerErrorException } from '@nestjs/common';
+import { saveSession } from 'src/au/auth/helpers/save-session';
 
 @CommandHandler(CreateSocialUserCommand)
 export class CreateSocialUserHandler extends Handler<
@@ -37,16 +37,7 @@ export class CreateSocialUserHandler extends Handler<
 
     session.user_id = user.id;
 
-    await new Promise<void>((resolve, reject) => {
-      session.save((err) => {
-        if (err) {
-          reject(new InternalServerErrorException('Failed to save session.'));
-          this.logger.error(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    await saveSession(session, this.logger);
 
     return { status: AuthStatus.login };
   }

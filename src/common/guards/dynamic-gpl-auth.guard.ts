@@ -51,30 +51,13 @@ export class DynamicGplAuthGuard extends AuthGuard([
       };
     }
 
-    // Definiujemy puste funkcje, których szuka Passport
-    if (typeof request.logIn !== 'function')
-      request.logIn = (user, done) => done(null);
-    if (typeof request.login !== 'function')
-      request.login = (user, done) => done(null);
-    if (typeof request.logOut !== 'function') request.logOut = () => {};
-    if (typeof request.logout !== 'function') request.logout = () => {};
-    if (typeof (request as any).isAuthenticated !== 'function')
-      (request as any).isAuthenticated = () => false;
     const PassportGuardClass = AuthGuard(provider);
     const instance = new PassportGuardClass();
-    console.log('🚀 ~ DynamicGplAuthGuard ~ canActivate ~ instance:', instance);
-    // if (!request.logIn) {
-    //   (request as any).logIn = (user, opts, done: any) => done?.(null);
-    // }
-    console.log(
-      '🚀 ~ DynamicGplAuthGuard ~ canActivate ~ request:',
-      request.logIn,
-    );
+
     return instance.canActivate(context) as Promise<boolean>;
   }
 
   getRequest(context: ExecutionContext) {
-    console.log('🚀 ~ DynamicGplAuthGuard ~ getRequest ~ context:', context);
     const ctx = GqlExecutionContext.create(context);
     return ctx.getContext<Context>().req;
   }

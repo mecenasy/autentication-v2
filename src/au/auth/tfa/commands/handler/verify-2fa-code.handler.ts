@@ -2,10 +2,7 @@ import { Handler } from 'src/common/handler/handler';
 import { StatusType } from 'src/au/auth/login/dto/status.type';
 import { AuthStatus } from 'src/au/auth/types/login-status';
 import { CommandHandler } from '@nestjs/cqrs';
-import {
-  BadRequestException,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { authenticator } from '@otplib/preset-default';
 import { lastValueFrom } from 'rxjs';
 import {
@@ -13,6 +10,7 @@ import {
   LoginProxyServiceClient,
 } from 'src/proto/login';
 import { Verify2faCodeCommand } from '../impl/verify-2fa-code.command';
+import { saveSession } from 'src/au/auth/helpers/save-session';
 
 @CommandHandler(Verify2faCodeCommand)
 export class VerifyCodeHandler extends Handler<
@@ -44,16 +42,7 @@ export class VerifyCodeHandler extends Handler<
 
     session.user_id = result.userId;
 
-    await new Promise<void>((resolve, reject) => {
-      session.save((err) => {
-        if (err) {
-          reject(new InternalServerErrorException('Failed to save session.'));
-          this.logger.error(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    await saveSession(session, this.logger);
 
     return { status: AuthStatus.login };
   }

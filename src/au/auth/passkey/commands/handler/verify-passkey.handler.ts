@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { CommandHandler } from '@nestjs/cqrs';
 import { Handler } from 'src/common/handler/handler';
 import { VerifyPasskeyCommand } from '../impl/verify-passkey.command.';
-import { InternalServerErrorException } from '@nestjs/common';
-import { verifyAuthenticationResponse } from '@simplewebauthn/server';
 import {
   PASSKEY_PROXY_SERVICE_NAME,
   PasskeyProxyServiceClient,
@@ -13,6 +10,8 @@ import { TypeConfigService } from 'src/configs/types.config.service';
 import { lastValueFrom } from 'rxjs';
 import { AuthStatus } from 'src/au/auth/types/login-status';
 import { StatusType } from 'src/au/auth/login/dto/status.type';
+import { verification } from '../../helpers/verification';
+import { saveSession } from 'src/au/auth/helpers/save-session';
 
 @CommandHandler(VerifyPasskeyCommand)
 export class VerifyPasskeyHandler extends Handler<
@@ -41,36 +40,25 @@ export class VerifyPasskeyHandler extends Handler<
       return { status: AuthStatus.logout };
     }
 
-    const verification = await verifyAuthenticationResponse({
+    const verify = await verification(
       response,
-      expectedChallenge: challenge,
-      expectedOrigin: this.clientUrl,
-      expectedRPID: this.clientUrl.replace('https://', ''),
-      credential: {
-        id: passkey.credentialID ?? '',
-        publicKey: new Uint8Array(passkey.publicKey ?? []),
-        counter: passkey.counter ?? 0,
-      },
-    });
+      this.clientUrl,
+      challenge,
+      passkey,
+    );
 
-    if (verification.verified) {
+    if (verify.verified) {
       session.user_id = passkey.userId;
       session.currentChallenge = undefined;
 
-      await new Promise<void>((resolve, reject) => {
-        session.save((err) => {
-          if (err) {
-            reject(new InternalServerErrorException('Failed to save session.'));
-            this.logger.error(err);
-          } else {
-            resolve();
-          }
-        });
-      });
-      this.gRpcService.setCounter({
-        credentialID: response.id,
-        counter: verification.authenticationInfo.newCounter,
-      });
+      await saveSession(session, this.logger);
+
+      await lastValueFrom(
+        this.gRpcService.setCounter({
+          credentialID: response.id,
+          counter: verify.authenticationInfo.newCounter,
+        }),
+      );
 
       return { status: AuthStatus.login };
     } else {

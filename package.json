@@ -64,6 +64,7 @@
     "express-session": "^1.19.0",
     "geoip-lite": "^2.0.0",
     "graphql": "^16.13.1",
+    "graphql-type-json": "^0.3.2",
     "ioredis": "^5.9.3",
     "joi": "^18.0.2",
     "nodemailer": "^8.0.1",
