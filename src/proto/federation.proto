@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package federation;
+
+service FederationProxyService {
+  rpc Create(CreateRequest) returns (CreateFederationResponse);
+  rpc Update(UpdateRequest) returns (CreateFederationResponse);
+  rpc NewSecret(FederationRequest) returns (NewSecretResponse);
+  rpc Toggle(FederationRequest) returns (FederationResponse);
+  rpc Remove(FederationRequest) returns (FederationResponse);
+  rpc Get(FederationRequest) returns (GetFederationResponse);
+  rpc GetAll(GetAllFederationRequest) returns (GetAllFederationResponse);
+}
+
+message Federation {
+  string name = 1;
+  string clientId = 2;
+}
+
+message GetAllFederationResponse {
+  repeated Federation federations = 1;
+}
+
+message CreateRequest {
+  string name = 1;
+  string clientUrl = 2;
+  string userId = 3;
+}
+
+message CreateFederationResponse {
+  string name = 1;
+  string clientId = 2;
+  string clientUrl = 3;
+  bool isActivated = 4;
+  string id = 5;
+}
+
+message FederationResponse {
+  bool status = 1;
+  string message = 2;
+}
+
+message UpdateRequest {
+  string name = 1;
+  string clientUrl = 2;
+  string userId = 3;
+  string clientId = 4;
+  bool isActivated = 5;
+}
+
+message FederationRequest {
+  string userId = 1;
+  string clientId = 2;
+}
+
+message NewSecretResponse {
+  string secret = 1;
+}
+
+message GetAllFederationRequest {
+  string userId = 1;
+}
+
+message GetFederationResponse {
+  string name = 1;
+  string clientId = 2;
+  string clientUrl = 3;
+  bool isActivated = 4;
+  string id = 5;
+}

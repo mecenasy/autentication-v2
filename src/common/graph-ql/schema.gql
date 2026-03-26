@@ -39,6 +39,19 @@ input ChangePasswordType {
   oldPassword: String!
 }
 
+input CratedFederationInputType {
+  active: Boolean!
+  clientUrl: String!
+  name: String!
+}
+
+type CreateFederationType {
+  clientId: String!
+  clientUrl: String!
+  isActivated: Boolean!
+  name: String!
+}
+
 input CreateSocialConfigDto {
   active: Boolean!
   callbackUrl: String
@@ -60,6 +73,24 @@ type DeleteSocialConfigType {
 
 input ForgotPasswordType {
   email: String!
+}
+
+type GenerateSecretType {
+  secret: String!
+}
+
+type GetFederationDetailsType {
+  clientId: String!
+  clientUrl: String!
+  isActivated: Boolean!
+  loginUrl: String!
+  name: String!
+  verifyUrl: String!
+}
+
+type GetFederationType {
+  clientId: String!
+  name: String!
 }
 
 """
@@ -88,7 +119,12 @@ type Mutation {
   createSocialConfig(input: CreateSocialConfigDto!): SocialConfigType!
   createUser(input: CreateUserType!): UserType!
   deleteSocialConfig(id: String!): DeleteSocialConfigType!
+  federationCreate(input: CratedFederationInputType!): CreateFederationType!
+  federationRemove(clientId: String!): RemoveFederationType!
+  federationToggle(clientId: String!): ToggleFederationType!
+  federationUpdate(clientId: String!, input: CratedFederationInputType!): CreateFederationType!
   forgotPassword(input: ForgotPasswordType!): StatusType!
+  generateSecret(clientId: String!): GenerateSecretType!
   loginUser(input: LoginType!): StatusType!
   logoutUser: StatusType!
   optionPasskey: JSON!
@@ -133,11 +169,17 @@ type QrChallengeType {
 
 type Query {
   _ping: Boolean
+  federationGet(clientId: String!): GetFederationDetailsType!
+  federationGetAll: [GetFederationType!]!
   getAllConfig: SocialConfigsType!
   getConfig(id: String!): SocialConfigType!
   getPasskeys: [PassKeyType!]!
   loginStatus: LoginStatusType!
   verifyToken(token: String!): VerifyTokenType!
+}
+
+type RemoveFederationType {
+  clientId: String!
 }
 
 type RemovePasskeyType {
@@ -165,6 +207,11 @@ type SocialConfigsType {
 
 type StatusType {
   status: AuthStatus!
+}
+
+type ToggleFederationType {
+  active: Boolean!
+  clientId: ID!
 }
 
 input UpdateSocialConfigDto {

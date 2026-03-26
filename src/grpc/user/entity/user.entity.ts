@@ -12,7 +12,7 @@ import {
 import { Password } from '../password/entity/password.entity';
 import { SocialAccounts } from '../social-accounts/entity/social-accounts.entity';
 import { PassKey } from 'src/grpc/auth/passkey/entity/passkey.entity';
-import { ProjectAuth } from 'src/common/postgres/entity/project-auth.entity';
+import { Federation } from 'src/grpc/auth/federation/entity/federation.entity';
 import { UserSettings } from '../user-settings/entity/user-settings.entity';
 import { History } from 'src/grpc/user/history/entity/history.entity';
 
@@ -80,11 +80,11 @@ export class User {
   })
   passkey: PassKey[];
 
-  @OneToMany(() => ProjectAuth, (project) => project.user, {
+  @OneToMany(() => Federation, (project) => project.user, {
     cascade: true,
     nullable: true,
   })
-  projectsAuth: ProjectAuth[];
+  projectsAuth: Federation[];
 
   @OneToOne(() => UserSettings, (settings) => settings.user, {
     cascade: true,

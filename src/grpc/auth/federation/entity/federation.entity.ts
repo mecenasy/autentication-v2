@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity('project_auth')
-export class ProjectAuth {
+export class Federation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

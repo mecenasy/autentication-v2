@@ -6,6 +6,7 @@ import { TfaModule } from './tfa/tfa.module';
 import { StrategyModule } from './strategy/strategy.module';
 import { PasskeyModule } from './passkey/passkey.module';
 import { GrCodeModule } from './gr-code/gr-code.module';
+import { FederationModule } from './federation/federation.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { GrCodeModule } from './gr-code/gr-code.module';
     StrategyModule,
     PasskeyModule,
     GrCodeModule,
+    FederationModule,
   ],
 })
 export class AuthModule {}
