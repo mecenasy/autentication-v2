@@ -6,8 +6,6 @@ import { GrpcProxyKey, ProxyKey } from './constance';
 import { RedisConfig } from 'src/common/redis/config/redis.config';
 import { join } from 'path';
 import { getGrpcOptions } from 'src/libs/utils/get-proto-files';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from '../guards/user.guard';
 
 @Global()
 @Module({
@@ -57,16 +55,5 @@ import { AuthGuard } from '../guards/user.guard';
     ]),
   ],
   exports: [ClientsModule],
-  providers: [
-    TypeConfigService,
-    {
-      provide: TypeConfigService,
-      useExisting: ConfigService,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ],
 })
 export class ProxyModule {}

@@ -8,12 +8,12 @@ import { ProxyModule } from './proxy/proxy.module';
 import { GraphQlModule } from './graph-ql/graph-ql.module';
 import { CacheService } from './cache/cache.service';
 import { EventService } from './event/event.service';
-import { CqrsModule } from '@nestjs/cqrs';
-import { TypeConfigService } from 'src/configs/types.config.service';
 import { ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthGuard } from './guards/user.guard';
+import { TypeConfigService } from 'src/configs/types.config.service';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Global()
 @Module({
@@ -47,7 +47,6 @@ import { AuthGuard } from './guards/user.guard';
   providers: [
     CacheService,
     EventService,
-    TypeConfigService,
     {
       provide: TypeConfigService,
       useExisting: ConfigService,
@@ -57,6 +56,6 @@ import { AuthGuard } from './guards/user.guard';
       useClass: AuthGuard,
     },
   ],
-  exports: [CacheService, EventService],
+  exports: [CacheService, EventService, TypeConfigService, CqrsModule],
 })
 export class CommonModule {}

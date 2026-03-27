@@ -17,13 +17,6 @@ import { TypeConfigService } from 'src/configs/types.config.service';
       }),
     }),
   ],
-  providers: [
-    TypeConfigService,
-    {
-      provide: TypeConfigService,
-      useExisting: ConfigService,
-    },
-  ],
   exports: [TypeOrmModule],
 })
 export class PostgresModule {}

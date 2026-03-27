@@ -3,8 +3,8 @@ import { AppConfig } from './app.configs';
 import * as Joi from 'joi';
 import { SessionConfig } from './session.config';
 import { RedisConfig } from 'src/common/redis/config/redis.config';
-import { SmsConfig } from 'src/autemticator/notify/sms/config/sms.configs';
-import { SmtpConfig } from 'src/autemticator/notify/smtp/config/smtp.configs';
+import { SmsConfig } from 'src/authenticator/notify/sms/config/sms.configs';
+import { SmtpConfig } from 'src/authenticator/notify/smtp/config/smtp.configs';
 import { JwtConfig } from './auth.config';
 
 export interface ConfigTypes {

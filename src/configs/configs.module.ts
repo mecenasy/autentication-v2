@@ -6,8 +6,8 @@ import { sessionConfig } from './session.config';
 import { postgresConfig } from 'src/common/postgres/config/postgres.config';
 import { TypeConfigService } from './types.config.service';
 import { appConfig } from './app.configs';
-import { smsConfig } from 'src/autemticator/notify/sms/config/sms.configs';
-import { smtpConfig } from 'src/autemticator/notify/smtp/config/smtp.configs';
+import { smsConfig } from 'src/authenticator/notify/sms/config/sms.configs';
+import { smtpConfig } from 'src/authenticator/notify/smtp/config/smtp.configs';
 import { jwtConfig } from './auth.config';
 
 @Module({

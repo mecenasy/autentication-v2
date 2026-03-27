@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { History } from './entity/history.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LogRiskEventRequest, UpdateRiskEventRequest } from 'src/proto/risk';
-import { RiskReason } from 'src/autemticator/auth/risk/types/risk-reason';
+import { RiskReason } from 'src/authenticator/auth/risk/types/risk-reason';
 
 @Injectable()
 export class HistoryService {

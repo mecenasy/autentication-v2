@@ -3,20 +3,26 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
 import { join } from 'path';
 import { Context } from '../types/context';
-import GraphQLJSON from 'graphql-type-json';
+import { JSONScalarDefinition } from './scalars/json.scalar';
+import { readFileSync } from 'fs';
+
+const typeDefs = readFileSync(
+  join(process.cwd(), 'src/common/graph-ql/schema.gql'),
+  'utf8',
+);
+
 @Global()
 @Module({
   imports: [
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       context: ({ req, res }: Context) => ({ req, res }),
-      autoSchemaFile: join(process.cwd(), 'src/common/graph-ql/schema.gql'),
-      sortSchema: true,
+      typeDefs,
+      resolvers: { JSON: JSONScalarDefinition.type },
       playground: true,
       introspection: true,
       debug: true,
       installSubscriptionHandlers: true,
-      resolvers: { JSON: GraphQLJSON },
       subscriptions: {
         'graphql-ws': true,
       },
