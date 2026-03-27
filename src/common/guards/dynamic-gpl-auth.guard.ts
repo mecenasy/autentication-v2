@@ -7,7 +7,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { Context } from '../types/context';
-import { AuthSocial } from 'src/au/auth/login/dto/auth_sociao.type';
+import { AuthSocial } from 'src/autemticator/auth/login/dto/auth_sociao.type';
 
 @Injectable()
 export class DynamicGplAuthGuard extends AuthGuard([
