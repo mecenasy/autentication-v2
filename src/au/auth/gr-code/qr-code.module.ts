@@ -8,4 +8,4 @@ import { TypeConfigService } from 'src/configs/types.config.service';
   imports: [CqrsModule],
   providers: [...qrCodeCommands, QrCodeCommandsResolver, TypeConfigService],
 })
-export class GrCodeModule {}
+export class QrCodeModule {}

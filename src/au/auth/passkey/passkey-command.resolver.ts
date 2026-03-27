@@ -14,7 +14,6 @@ import type {
   AuthenticationResponseJSON,
   RegistrationResponseJSON,
 } from '@simplewebauthn/server';
-import { User } from 'src/grpc/user/entity/user.entity';
 import { RegisterPasskeyOptionCommand } from './commands/impl/register-passkey-option.command';
 import { VerifyRegistrationOptionCommand } from './commands/impl/verify-registration-option.command';
 import { Headers } from '@nestjs/common';

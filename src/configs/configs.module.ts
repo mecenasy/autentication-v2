@@ -8,6 +8,7 @@ import { TypeConfigService } from './types.config.service';
 import { appConfig } from './app.configs';
 import { smsConfig } from 'src/au/notify/sms/config/sms.configs';
 import { smtpConfig } from 'src/au/notify/smtp/config/smtp.configs';
+import { jwtConfig } from './auth.config';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { smtpConfig } from 'src/au/notify/smtp/config/smtp.configs';
       isGlobal: true,
       load: [
         appConfig,
+        jwtConfig,
         postgresConfig,
         sessionConfig,
         redisConfig,

@@ -7,6 +7,8 @@ import type {
   FederationResponse,
   GetAllFederationRequest,
   GetAllFederationResponse,
+  GetClientFederationRequest,
+  GetClientResponse,
   GetFederationResponse,
   NewSecretResponse,
   UpdateRequest,
@@ -48,5 +50,12 @@ export class FederationController implements FederationProxyServiceController {
   @GrpcMethod(FEDERATION_PROXY_SERVICE_NAME, 'Update')
   async update(request: UpdateRequest): Promise<CreateFederationResponse> {
     return await this.federationService.update(request);
+  }
+
+  @GrpcMethod(FEDERATION_PROXY_SERVICE_NAME, 'GetClient')
+  async getClient(
+    request: GetClientFederationRequest,
+  ): Promise<GetClientResponse> {
+    return await this.federationService.getClient(request);
   }
 }

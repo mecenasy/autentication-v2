@@ -5,6 +5,7 @@ import { SessionConfig } from './session.config';
 import { RedisConfig } from 'src/common/redis/config/redis.config';
 import { SmsConfig } from 'src/au/notify/sms/config/sms.configs';
 import { SmtpConfig } from 'src/au/notify/smtp/config/smtp.configs';
+import { JwtConfig } from './auth.config';
 
 export interface ConfigTypes {
   app: AppConfig;
@@ -13,6 +14,7 @@ export interface ConfigTypes {
   redis: RedisConfig;
   sms: SmsConfig;
   smtp: SmtpConfig;
+  jwt: JwtConfig;
 }
 
 export const configSchema = Joi.object({
@@ -38,6 +40,7 @@ export const configSchema = Joi.object({
   TWILO_TOKEN: Joi.string().required(),
   TWILO_PHONE: Joi.string().required(),
   TWILO_WHATSAPP_PHONE: Joi.string().required(),
+
   WHATSAPP_PHONE: Joi.string().required(),
   WHATSAPP_ACCESS_TOKEN: Joi.string().required(),
   WHATSAPP_PHONE_ID: Joi.string().required(),
@@ -47,4 +50,7 @@ export const configSchema = Joi.object({
   SMTP_PORT: Joi.string().required(),
   SMTP_FROM: Joi.string().required(),
   SMTP_USER: Joi.string().required(),
+
+  JWT_SECRET_KEY: Joi.string().required(),
+  JWT_EXPIRE_AT: Joi.string().required(),
 });

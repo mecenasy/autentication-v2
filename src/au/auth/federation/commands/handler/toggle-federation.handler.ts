@@ -22,21 +22,18 @@ export class ToggleFederationHandler extends Handler<
 
   async execute({ clientId, userId }: ToggleFederationCommand) {
     try {
-
       const result = await lastValueFrom(
         this.gRpcService.toggle({
           clientId,
           userId,
         }),
       );
-      console.log("🚀 ~ ToggleFederationHandler ~ execute ~ result:", result)
 
       if (result?.status) {
         const cache = await this.cache.getFromCache<FederationCache>({
           identifier: userId,
           prefix: 'federation',
         });
-        console.log("🚀 ~ ToggleFederationHandler ~ execute ~ cache:", cache)
 
         if (cache) {
           cache[clientId].isActivated = !cache[clientId].isActivated;
@@ -49,9 +46,7 @@ export class ToggleFederationHandler extends Handler<
           });
           return { active: cache[clientId].isActivated, clientId };
         }
-
       }
-      console.log("🚀 ~ ToggleFederationHandler ~ execute ~ result:", result)
       throw new BadRequestException('Something went wrong');
     } catch (error) {
       this.logger.error(error);

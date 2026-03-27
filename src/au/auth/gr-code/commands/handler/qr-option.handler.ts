@@ -1,6 +1,6 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { Handler } from 'src/common/handler/handler';
-import { QrOptionCommand } from '../impl/gr-option.command';
+import { QrOptionCommand } from '../impl/qr-option.command';
 import { QrCache } from './types/types';
 import { PublicKeyCredentialRequestOptionsJSON } from '@simplewebauthn/server';
 import { BadRequestException } from '@nestjs/common';

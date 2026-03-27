@@ -11,6 +11,16 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "federation";
 
+export interface GetClientFederationRequest {
+  clientId: string;
+}
+
+export interface GetClientResponse {
+  clientUrl: string;
+  hash: string;
+  salt: string;
+}
+
 export interface Federation {
   name: string;
   clientId: string;
@@ -84,6 +94,8 @@ export interface FederationProxyServiceClient {
   get(request: FederationRequest, metadata?: Metadata): Observable<GetFederationResponse>;
 
   getAll(request: GetAllFederationRequest, metadata?: Metadata): Observable<GetAllFederationResponse>;
+
+  getClient(request: GetClientFederationRequest, metadata?: Metadata): Observable<GetClientResponse>;
 }
 
 export interface FederationProxyServiceController {
@@ -121,11 +133,16 @@ export interface FederationProxyServiceController {
     request: GetAllFederationRequest,
     metadata?: Metadata,
   ): Promise<GetAllFederationResponse> | Observable<GetAllFederationResponse> | GetAllFederationResponse;
+
+  getClient(
+    request: GetClientFederationRequest,
+    metadata?: Metadata,
+  ): Promise<GetClientResponse> | Observable<GetClientResponse> | GetClientResponse;
 }
 
 export function FederationProxyServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["create", "update", "newSecret", "toggle", "remove", "get", "getAll"];
+    const grpcMethods: string[] = ["create", "update", "newSecret", "toggle", "remove", "get", "getAll", "getClient"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("FederationProxyService", method)(constructor.prototype[method], method, descriptor);

@@ -5,7 +5,7 @@ import { OtpModule } from './otp/otp.module';
 import { TfaModule } from './tfa/tfa.module';
 import { StrategyModule } from './strategy/strategy.module';
 import { PasskeyModule } from './passkey/passkey.module';
-import { GrCodeModule } from './gr-code/gr-code.module';
+import { QrCodeModule } from './gr-code/qr-code.module';
 import { FederationModule } from './federation/federation.module';
 
 @Module({
@@ -16,7 +16,7 @@ import { FederationModule } from './federation/federation.module';
     LoginModule,
     StrategyModule,
     PasskeyModule,
-    GrCodeModule,
+    QrCodeModule,
     FederationModule,
   ],
 })

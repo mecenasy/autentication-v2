@@ -10,6 +10,17 @@ service FederationProxyService {
   rpc Remove(FederationRequest) returns (FederationResponse);
   rpc Get(FederationRequest) returns (GetFederationResponse);
   rpc GetAll(GetAllFederationRequest) returns (GetAllFederationResponse);
+  rpc GetClient(GetClientFederationRequest) returns (GetClientResponse);
+}
+
+message GetClientFederationRequest {
+  string clientId = 1;
+}
+
+message GetClientResponse {
+  string clientUrl = 1;
+  string hash = 2;
+  string salt = 3;
 }
 
 message Federation {

@@ -1,6 +1,6 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { Handler } from 'src/common/handler/handler';
-import { QrConfirmCommand } from '../impl/gr-confirm.command';
+import { QrConfirmCommand } from '../impl/qr-confirm.command';
 import { QrCache } from './types/types';
 import { BadRequestException } from '@nestjs/common';
 import { verification } from 'src/au/auth/passkey/helpers/verification';

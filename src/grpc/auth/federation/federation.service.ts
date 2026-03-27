@@ -9,6 +9,8 @@ import type {
   FederationResponse,
   GetAllFederationRequest,
   GetAllFederationResponse,
+  GetClientFederationRequest,
+  GetClientResponse,
   GetFederationResponse,
   NewSecretResponse,
   UpdateRequest,
@@ -181,6 +183,19 @@ export class FederationService {
     return await this.findProject(clientId, userId);
   }
 
+  public async getClient({
+    clientId,
+  }: GetClientFederationRequest): Promise<GetClientResponse> {
+    const result = await this.federationRepository.findOne({
+      where: { clientId },
+    });
+
+    return {
+      clientUrl: result?.clientUrl ?? '',
+      hash: result?.hash ?? '',
+      salt: result?.salt ?? '',
+    };
+  }
   private async findProject(clientId: string, userId: string) {
     return await this.federationRepository.findOneOrFail({
       where: { clientId, user: { id: userId } },

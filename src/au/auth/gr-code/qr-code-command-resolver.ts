@@ -2,14 +2,14 @@ import { CommandBus } from '@nestjs/cqrs';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { Public } from 'src/common/decorators/public.decorator';
 import { QrChallengeType } from './dto/qr-challenge.type';
-import { QrChallengeCommand } from './commands/impl/gr-chanllenge.command';
+import { QrChallengeCommand } from './commands/impl/qr-chanllenge.command';
 import { StatusType } from '../login/dto/status.type';
-import { QrLoginCommand } from './commands/impl/gr-login.command';
-import { QrRejectCommand } from './commands/impl/gr-reject.command';
+import { QrLoginCommand } from './commands/impl/qr-login.command';
+import { QrRejectCommand } from './commands/impl/qr-reject.command';
 import express from 'express';
-import { QrOptionCommand } from './commands/impl/gr-option.command';
+import { QrOptionCommand } from './commands/impl/qr-option.command';
 import GraphQLJSON from 'graphql-type-json';
-import { QrConfirmCommand } from './commands/impl/gr-confirm.command';
+import { QrConfirmCommand } from './commands/impl/qr-confirm.command';
 import type { AuthenticationResponseJSON } from '@simplewebauthn/server';
 
 @Resolver('QrCode')

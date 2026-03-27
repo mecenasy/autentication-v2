@@ -1,6 +1,6 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { Handler } from 'src/common/handler/handler';
-import { QrRejectCommand } from '../impl/gr-reject.command';
+import { QrRejectCommand } from '../impl/qr-reject.command';
 import { BadRequestException } from '@nestjs/common';
 import { QrCache } from './types/types';
 import { Getaway } from 'src/common/getaway/getaway.getaway';

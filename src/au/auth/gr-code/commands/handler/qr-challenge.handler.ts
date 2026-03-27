@@ -1,6 +1,6 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { Handler } from 'src/common/handler/handler';
-import { QrChallengeCommand } from '../impl/gr-chanllenge.command';
+import { QrChallengeCommand } from '../impl/qr-chanllenge.command';
 import { QrChallengeType } from '../../dto/qr-challenge.type';
 import { TypeConfigService } from 'src/configs/types.config.service';
 import { AppConfig } from 'src/configs/app.configs';

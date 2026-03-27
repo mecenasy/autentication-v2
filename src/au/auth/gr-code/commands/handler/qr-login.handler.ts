@@ -1,6 +1,6 @@
 import { CommandHandler } from '@nestjs/cqrs';
 import { Handler } from 'src/common/handler/handler';
-import { QrLoginCommand } from '../impl/gr-login.command';
+import { QrLoginCommand } from '../impl/qr-login.command';
 import { BadRequestException } from '@nestjs/common';
 import { QrCache } from './types/types';
 import { StatusType } from 'src/au/auth/login/dto/status.type';

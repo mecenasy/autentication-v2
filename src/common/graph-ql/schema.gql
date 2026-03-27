@@ -71,6 +71,20 @@ type DeleteSocialConfigType {
   id: ID!
 }
 
+type DiscoveryFederationType {
+  clientUrl: String!
+  token: String!
+}
+
+type FederationTokenType {
+  accessToken: String!
+  accessTokenExpiredIn: Float!
+  email: String!
+  refreshToken: String!
+  refreshTokenExpiredIn: Float!
+  secret: String!
+}
+
 input ForgotPasswordType {
   email: String!
 }
@@ -125,6 +139,7 @@ type Mutation {
   federationUpdate(clientId: String!, input: CratedFederationInputType!): CreateFederationType!
   forgotPassword(input: ForgotPasswordType!): StatusType!
   generateSecret(clientId: String!): GenerateSecretType!
+  loginFederation(input: LoginType!, token: String!): StatusType!
   loginUser(input: LoginType!): StatusType!
   logoutUser: StatusType!
   optionPasskey: JSON!
@@ -134,6 +149,7 @@ type Mutation {
   qrLogin(challenge: String!, nonce: String!): StatusType!
   qrOption(challenge: String!, nonce: String!): JSON!
   qrReject(challenge: String!): StatusType!
+  refreshTokenFederation(clientId: String!, secret: String!, token: String!): FederationTokenType!
   registerOptionPasskey: JSON!
   registerOptionPasskeyVerify(data: JSON!): StatusType!
   reject2fa: StatusType!
@@ -144,6 +160,10 @@ type Mutation {
   verify2fa(code: String!): StatusType!
   verify2faCode(input: Verify2faCodeType!): StatusType!
   verifyMfa(input: VerifyCodeType!): StatusType!
+  verifyMfaFederation(code: Float!, email: String!, token: String!): StatusType!
+  verifyPasskeyFederation(data: JSON!, token: String!): StatusType!
+  verifyTfaFederation(code: String!, email: String!, token: String!): StatusType!
+  verifyTokenFederation(clientId: String!, secret: String!, token: String!): FederationTokenType!
 }
 
 type PassKeyType {
@@ -169,6 +189,7 @@ type QrChallengeType {
 
 type Query {
   _ping: Boolean
+  discoveryFederation(clientId: String!): DiscoveryFederationType!
   federationGet(clientId: String!): GetFederationDetailsType!
   federationGetAll: [GetFederationType!]!
   getAllConfig: SocialConfigsType!
