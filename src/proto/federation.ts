@@ -5,11 +5,11 @@
 // source: src/proto/federation.proto
 
 /* eslint-disable */
-import type { Metadata } from "@grpc/grpc-js";
-import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
-import { Observable } from "rxjs";
+import type { Metadata } from '@grpc/grpc-js';
+import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
-export const protobufPackage = "federation";
+export const protobufPackage = 'federation';
 
 export interface GetClientFederationRequest {
   clientId: string;
@@ -78,81 +78,152 @@ export interface GetFederationResponse {
   id: string;
 }
 
-export const FEDERATION_PACKAGE_NAME = "federation";
+export const FEDERATION_PACKAGE_NAME = 'federation';
 
 export interface FederationProxyServiceClient {
-  create(request: CreateRequest, metadata?: Metadata): Observable<CreateFederationResponse>;
+  create(
+    request: CreateRequest,
+    metadata?: Metadata,
+  ): Observable<CreateFederationResponse>;
 
-  update(request: UpdateRequest, metadata?: Metadata): Observable<CreateFederationResponse>;
+  update(
+    request: UpdateRequest,
+    metadata?: Metadata,
+  ): Observable<CreateFederationResponse>;
 
-  newSecret(request: FederationRequest, metadata?: Metadata): Observable<NewSecretResponse>;
+  newSecret(
+    request: FederationRequest,
+    metadata?: Metadata,
+  ): Observable<NewSecretResponse>;
 
-  toggle(request: FederationRequest, metadata?: Metadata): Observable<FederationResponse>;
+  toggle(
+    request: FederationRequest,
+    metadata?: Metadata,
+  ): Observable<FederationResponse>;
 
-  remove(request: FederationRequest, metadata?: Metadata): Observable<FederationResponse>;
+  remove(
+    request: FederationRequest,
+    metadata?: Metadata,
+  ): Observable<FederationResponse>;
 
-  get(request: FederationRequest, metadata?: Metadata): Observable<GetFederationResponse>;
+  get(
+    request: FederationRequest,
+    metadata?: Metadata,
+  ): Observable<GetFederationResponse>;
 
-  getAll(request: GetAllFederationRequest, metadata?: Metadata): Observable<GetAllFederationResponse>;
+  getAll(
+    request: GetAllFederationRequest,
+    metadata?: Metadata,
+  ): Observable<GetAllFederationResponse>;
 
-  getClient(request: GetClientFederationRequest, metadata?: Metadata): Observable<GetClientResponse>;
+  getClient(
+    request: GetClientFederationRequest,
+    metadata?: Metadata,
+  ): Observable<GetClientResponse>;
 }
 
 export interface FederationProxyServiceController {
   create(
     request: CreateRequest,
     metadata?: Metadata,
-  ): Promise<CreateFederationResponse> | Observable<CreateFederationResponse> | CreateFederationResponse;
+  ):
+    | Promise<CreateFederationResponse>
+    | Observable<CreateFederationResponse>
+    | CreateFederationResponse;
 
   update(
     request: UpdateRequest,
     metadata?: Metadata,
-  ): Promise<CreateFederationResponse> | Observable<CreateFederationResponse> | CreateFederationResponse;
+  ):
+    | Promise<CreateFederationResponse>
+    | Observable<CreateFederationResponse>
+    | CreateFederationResponse;
 
   newSecret(
     request: FederationRequest,
     metadata?: Metadata,
-  ): Promise<NewSecretResponse> | Observable<NewSecretResponse> | NewSecretResponse;
+  ):
+    | Promise<NewSecretResponse>
+    | Observable<NewSecretResponse>
+    | NewSecretResponse;
 
   toggle(
     request: FederationRequest,
     metadata?: Metadata,
-  ): Promise<FederationResponse> | Observable<FederationResponse> | FederationResponse;
+  ):
+    | Promise<FederationResponse>
+    | Observable<FederationResponse>
+    | FederationResponse;
 
   remove(
     request: FederationRequest,
     metadata?: Metadata,
-  ): Promise<FederationResponse> | Observable<FederationResponse> | FederationResponse;
+  ):
+    | Promise<FederationResponse>
+    | Observable<FederationResponse>
+    | FederationResponse;
 
   get(
     request: FederationRequest,
     metadata?: Metadata,
-  ): Promise<GetFederationResponse> | Observable<GetFederationResponse> | GetFederationResponse;
+  ):
+    | Promise<GetFederationResponse>
+    | Observable<GetFederationResponse>
+    | GetFederationResponse;
 
   getAll(
     request: GetAllFederationRequest,
     metadata?: Metadata,
-  ): Promise<GetAllFederationResponse> | Observable<GetAllFederationResponse> | GetAllFederationResponse;
+  ):
+    | Promise<GetAllFederationResponse>
+    | Observable<GetAllFederationResponse>
+    | GetAllFederationResponse;
 
   getClient(
     request: GetClientFederationRequest,
     metadata?: Metadata,
-  ): Promise<GetClientResponse> | Observable<GetClientResponse> | GetClientResponse;
+  ):
+    | Promise<GetClientResponse>
+    | Observable<GetClientResponse>
+    | GetClientResponse;
 }
 
 export function FederationProxyServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["create", "update", "newSecret", "toggle", "remove", "get", "getAll", "getClient"];
+    const grpcMethods: string[] = [
+      'create',
+      'update',
+      'newSecret',
+      'toggle',
+      'remove',
+      'get',
+      'getAll',
+      'getClient',
+    ];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("FederationProxyService", method)(constructor.prototype[method], method, descriptor);
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(
+        constructor.prototype,
+        method,
+      );
+      GrpcMethod('FederationProxyService', method)(
+        constructor.prototype[method],
+        method,
+        descriptor,
+      );
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("FederationProxyService", method)(constructor.prototype[method], method, descriptor);
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(
+        constructor.prototype,
+        method,
+      );
+      GrpcStreamMethod('FederationProxyService', method)(
+        constructor.prototype[method],
+        method,
+        descriptor,
+      );
     }
   };
 }
 
-export const FEDERATION_PROXY_SERVICE_NAME = "FederationProxyService";
+export const FEDERATION_PROXY_SERVICE_NAME = 'FederationProxyService';

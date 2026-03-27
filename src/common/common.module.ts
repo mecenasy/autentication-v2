@@ -9,6 +9,11 @@ import { GraphQlModule } from './graph-ql/graph-ql.module';
 import { CacheService } from './cache/cache.service';
 import { EventService } from './event/event.service';
 import { CqrsModule } from '@nestjs/cqrs';
+import { TypeConfigService } from 'src/configs/types.config.service';
+import { ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthGuard } from './guards/user.guard';
 
 @Global()
 @Module({
@@ -21,8 +26,37 @@ import { CqrsModule } from '@nestjs/cqrs';
     GetawayModule,
     ConfigsModule,
     ProxyModule,
+    ThrottlerModule.forRoot([
+      {
+        name: 'short',
+        ttl: 1000,
+        limit: 3,
+      },
+      {
+        name: 'medium',
+        ttl: 10000,
+        limit: 20,
+      },
+      {
+        name: 'long',
+        ttl: 60000,
+        limit: 100,
+      },
+    ]),
   ],
-  providers: [CacheService, EventService],
+  providers: [
+    CacheService,
+    EventService,
+    TypeConfigService,
+    {
+      provide: TypeConfigService,
+      useExisting: ConfigService,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
   exports: [CacheService, EventService],
 })
 export class CommonModule {}

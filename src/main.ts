@@ -7,11 +7,22 @@ import { initProxy } from './libs/proxy/proxy';
 import { initSession } from './libs/session/init-session';
 import { initCorse } from './libs/corse/corse';
 import { initSwagger } from './libs/swagger/swagger';
+import csurf from 'csurf';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
+
+  app.use(
+    csurf({
+      cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      },
+    }),
+  );
 
   await initProxy(app);
   await initSwagger(app);

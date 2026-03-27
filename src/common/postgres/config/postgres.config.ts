@@ -17,6 +17,11 @@ export const postgresConfig = registerAs(
           },
           url: process.env.DATABASE_URL,
           synchronize: false,
+          extra: {
+            max: 20, // Maximum number of connections
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: 2000,
+          },
         }
       : {
           type: 'postgres',
@@ -32,5 +37,10 @@ export const postgresConfig = registerAs(
             .replace('${DATABASE_PORT}', process.env.DATABASE_PORT ?? '')
             .replace('${DATABASE_DB}', process.env.DATABASE_DB ?? ''),
           synchronize: process.env.DATABASE_SYNC === '1',
+          extra: {
+            max: 20, // Maximum number of connections
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: 2000,
+          },
         },
 );
