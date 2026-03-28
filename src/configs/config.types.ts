@@ -42,10 +42,10 @@ export const configSchema = Joi.object({
   TWILO_PHONE: Joi.string().required(),
   TWILO_WHATSAPP_PHONE: Joi.string().required(),
 
-  WHATSAPP_PHONE: Joi.string().required(),
-  WHATSAPP_ACCESS_TOKEN: Joi.string().required(),
-  WHATSAPP_PHONE_ID: Joi.string().required(),
-  WHATSAPP_BUSINESS_ID: Joi.string().required(),
+  // WHATSAPP_PHONE: Joi.string().required(),
+  // WHATSAPP_ACCESS_TOKEN: Joi.string().required(),
+  // WHATSAPP_PHONE_ID: Joi.string().required(),
+  // WHATSAPP_BUSINESS_ID: Joi.string().required(),
 
   SMTP_HOST: Joi.string().required(),
   SMTP_PORT: Joi.string().required(),

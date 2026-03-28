@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { Request } from 'express';
 import { Security } from '../interceptors/security-context.interceptor';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { Context } from '../types/context';

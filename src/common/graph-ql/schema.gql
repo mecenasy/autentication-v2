@@ -247,7 +247,6 @@ input CreateSocialConfigDto {
   provider: Provider!
   clientId: String!
   secret: String!
-  callbackUrl: String
   active: Boolean!
 }
 

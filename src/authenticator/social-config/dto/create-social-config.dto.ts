@@ -1,11 +1,5 @@
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
-import {
-  IsEnum,
-  IsString,
-  IsOptional,
-  IsUrl,
-  IsBoolean,
-} from 'class-validator';
+import { IsEnum, IsString, IsBoolean } from 'class-validator';
 import { Provider } from 'src/libs/utils/provider';
 
 registerEnumType(Provider, { name: 'Provider' });
@@ -27,11 +21,6 @@ export class CreateSocialConfigDto {
   @Field()
   @IsString()
   secret: string;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsUrl({ require_tld: false })
-  callbackUrl?: string;
 
   @Field()
   @IsBoolean()

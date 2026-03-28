@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "96eecc2c-2ea9-49ef-96af-269b3fec2ad9",
+      "id": "966cf59d-e19a-4f56-b3f7-dd4d637eaba4",
       "name": "App Controller get Hello",
       "request": {
         "name": "App Controller get Hello",
@@ -21,7 +21,7 @@
       },
       "response": [
         {
-          "id": "3373f0f6-5be3-4c22-b0fd-b7a79bc4dcee",
+          "id": "0f9eea82-eb26-41c9-bcf2-c7dd58b17ed3",
           "originalRequest": {
             "url": {
               "path": [
@@ -55,11 +55,11 @@
       }
     },
     {
-      "id": "a4777f31-6ed7-4bc2-aa6b-04597997cdd7",
+      "id": "73673ca0-6279-4f8f-9033-4fde5a6620ef",
       "name": "user",
       "item": [
         {
-          "id": "d142bab0-58d5-4c5c-935b-b933b168d37b",
+          "id": "b188b43e-8447-4aa4-a98a-9d3a37e68659",
           "name": "User Controller azure Registration",
           "request": {
             "name": "User Controller azure Registration",
@@ -80,7 +80,7 @@
           },
           "response": [
             {
-              "id": "7cd4d8d0-ccce-4f5d-88b5-25474a66b51a",
+              "id": "a793d3cf-6890-4834-9c4e-cb8b75048879",
               "name": "year registered by microsoft account",
               "originalRequest": {
                 "url": {
@@ -116,7 +116,7 @@
           }
         },
         {
-          "id": "4033634c-fa74-4049-a7ca-c8ebf89b7425",
+          "id": "c3687256-abf2-4fb5-bae6-d0a234eacf3d",
           "name": "User Controller social Registration",
           "request": {
             "name": "User Controller social Registration",
@@ -138,7 +138,7 @@
           },
           "response": [
             {
-              "id": "0e3b8d2a-b128-4c3e-8f15-64ed77a57cb6",
+              "id": "c5e06b4c-7061-48ee-aa8a-7bbe610dc5df",
               "originalRequest": {
                 "url": {
                   "path": [
@@ -177,11 +177,11 @@
       "event": []
     },
     {
-      "id": "2748d521-7539-4488-ac9e-7e3296c12318",
+      "id": "183b138e-9c52-470c-8d2e-ad459602d008",
       "name": "auth",
       "item": [
         {
-          "id": "944b1e27-8fc8-4afa-911f-176f1b3a30d5",
+          "id": "79882481-73c7-4e0d-ba40-6af6791de893",
           "name": "Auth Controller azure Login",
           "request": {
             "name": "Auth Controller azure Login",
@@ -208,7 +208,7 @@
           },
           "response": [
             {
-              "id": "e030ad7c-cddc-4ebc-b639-1ec883d219e3",
+              "id": "c42720cf-2201-45f7-95c3-0e78fa1e7b69",
               "name": "you are logged by microsoft account",
               "originalRequest": {
                 "url": {
@@ -244,7 +244,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "405db731-b51b-48dc-ac3f-c9bbe4225702",
+              "id": "243be66a-15c1-4ede-bc03-f1940f734fd8",
               "name": "you are not authorized",
               "originalRequest": {
                 "url": {
@@ -280,11 +280,11 @@
           }
         },
         {
-          "id": "f7e2be1a-e3d2-4591-a466-6a62a8f11788",
+          "id": "59ea2636-a63c-4470-919c-e072780666bf",
           "name": "{provider}",
           "item": [
             {
-              "id": "aac5e558-c43b-4a4f-97fa-fde62c4e4839",
+              "id": "9ed13f88-a0c5-4741-8993-49b00c6aa958",
               "name": "Auth Controller social Verify",
               "request": {
                 "name": "Auth Controller social Verify",
@@ -312,7 +312,7 @@
               },
               "response": [
                 {
-                  "id": "0f9bbb89-4a44-4b18-8bc9-32d9cd3be6de",
+                  "id": "07dbb5e8-f9d7-4d46-8e6a-d5518352c97c",
                   "name": "redirect callback from social login provider google, facebook, X, apple, github, etc account",
                   "originalRequest": {
                     "url": {
@@ -349,7 +349,7 @@
                   "_postman_previewlanguage": "json"
                 },
                 {
-                  "id": "b260aa4f-789e-4a70-bd78-708f2fdcdc66",
+                  "id": "15ec3ad0-19f2-4413-be33-f155225f41ba",
                   "name": "you are not authorized",
                   "originalRequest": {
                     "url": {
@@ -386,7 +386,7 @@
               }
             },
             {
-              "id": "da0d5162-4a54-4b1a-ac99-218b7cfdea7e",
+              "id": "1f5c2aee-cd2b-4a69-ba89-f4ea85c657f6",
               "name": "Auth Controller social Login",
               "request": {
                 "name": "Auth Controller social Login",
@@ -414,7 +414,7 @@
               },
               "response": [
                 {
-                  "id": "26156200-bfb1-4651-8280-7c2cc6fc84db",
+                  "id": "cf619525-5c8d-41cf-81a6-550c6bede78f",
                   "name": "you are logged by social like google, facebook, X, apple, github, etc. account",
                   "originalRequest": {
                     "url": {
@@ -451,7 +451,7 @@
                   "_postman_previewlanguage": "json"
                 },
                 {
-                  "id": "f54a2a13-3dfc-47c0-9a9e-11217b29ad38",
+                  "id": "a70a2fe3-efa9-4d90-861b-67d86e8eed17",
                   "name": "you are not authorized",
                   "originalRequest": {
                     "url": {
@@ -492,6 +492,62 @@
         }
       ],
       "event": []
+    },
+    {
+      "id": "90ce0d20-5140-427a-b02f-d2779b3eac87",
+      "name": "Csrf Controller get Csrf Token",
+      "request": {
+        "name": "Csrf Controller get Csrf Token",
+        "description": {},
+        "url": {
+          "path": [
+            "csrf",
+            "token"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "2add23d6-a25e-4ce1-8937-d99d2b852211",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "csrf",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
     }
   ],
   "event": [],
@@ -503,7 +559,7 @@
     }
   ],
   "info": {
-    "_postman_id": "3da568ff-aef5-4c93-9b43-8543550e5956",
+    "_postman_id": "45b3d7a2-fb70-4bea-8c45-3645286eaec8",
     "name": "authentication-v2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
