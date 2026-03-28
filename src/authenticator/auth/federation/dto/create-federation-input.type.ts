@@ -1,9 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsUrl } from 'class-validator';
+import { IsString, IsUrl, IsBoolean, IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class CratedFederationInputType {
   @Field()
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsUrl({ require_tld: false })
@@ -11,5 +13,6 @@ export class CratedFederationInputType {
   clientUrl: string;
 
   @Field()
+  @IsBoolean()
   active: boolean;
 }

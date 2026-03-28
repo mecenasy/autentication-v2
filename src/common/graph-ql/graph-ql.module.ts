@@ -17,6 +17,7 @@ const typeDefs = readFileSync(
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       context: ({ req, res }: Context) => ({ req, res }),
+      autoSchemaFile: join(process.cwd(), 'src/common/graph-ql/schema.gql'),
       typeDefs,
       resolvers: { JSON: JSONScalarDefinition.type },
       playground: true,

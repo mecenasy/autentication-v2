@@ -2,184 +2,102 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type UserType {
+  id: ID!
+  email: String!
+}
+
+type StatusType {
+  status: AuthStatus!
+}
+
+enum AuthStatus {
+  new
+  tfa
+  adaptive
+  provider2fa
+  accept2fa
+  reject2fa
+  sms
+  providerSms
+  email
+  login
+  logout
+  refresh
+  changePassword
+  forgotPassword
+  resetPassword
+}
+
+type AcceptType {
+  status: AuthStatus!
+  dataUrl: String!
+}
+
 type AcceptAdaptiveLoginType {
   active: Boolean!
 }
 
-type AcceptType {
-  dataUrl: String!
-  status: AuthStatus!
-}
-
-type ActiveSocialConfigType {
-  active: Boolean!
+type UserStatusType {
   id: ID!
+  admin: Boolean!
+  email: String!
+  is2faEnabled: Boolean!
+  isAdaptiveLoginEnabled: Boolean!
 }
 
-enum AuthStatus {
-  accept2fa
-  adaptive
-  changePassword
-  email
-  forgotPassword
-  login
-  logout
-  new
-  provider2fa
-  providerSms
-  refresh
-  reject2fa
-  resetPassword
-  sms
-  tfa
+type LoginStatusType {
+  status: AuthStatus!
+  user: UserStatusType
+  message: String
+  phoneId: String
 }
 
-input ChangePasswordType {
-  newPassword: String!
-  oldPassword: String!
+type VerifyTokenType {
+  verify: Boolean!
 }
 
-input CratedFederationInputType {
-  active: Boolean!
-  clientUrl: String!
-  name: String!
-}
-
-type CreateFederationType {
-  clientId: String!
-  clientUrl: String!
-  isActivated: Boolean!
-  name: String!
-}
-
-input CreateSocialConfigDto {
-  active: Boolean!
-  callbackUrl: String
-  clientId: String!
+type SocialConfigType {
+  id: ID!
   name: String!
   provider: Provider!
+  clientId: String!
   secret: String!
+  callbackUrl: String
+  active: Boolean!
 }
 
-input CreateUserType {
-  email: String!
-  password: String!
-  phone: String!
+enum Provider {
+  microsoft
+  google
+  facebook
+  github
+  linkedin
+  twitter
+}
+
+type SocialConfigsType {
+  configs: [SocialConfigType!]!
 }
 
 type DeleteSocialConfigType {
   id: ID!
 }
 
-type DiscoveryFederationType {
-  clientUrl: String!
-  token: String!
-}
-
-type FederationTokenType {
-  accessToken: String!
-  accessTokenExpiredIn: Float!
-  email: String!
-  refreshToken: String!
-  refreshTokenExpiredIn: Float!
-  secret: String!
-}
-
-input ForgotPasswordType {
-  email: String!
-}
-
-type GenerateSecretType {
-  secret: String!
-}
-
-type GetFederationDetailsType {
-  clientId: String!
-  clientUrl: String!
-  isActivated: Boolean!
-  loginUrl: String!
-  name: String!
-  verifyUrl: String!
-}
-
-type GetFederationType {
-  clientId: String!
-  name: String!
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
-type LoginStatusType {
-  message: String
-  phoneId: String
-  status: AuthStatus!
-  user: UserStatusType
-}
-
-input LoginType {
-  email: String!
-  password: String!
-}
-
-type Mutation {
-  accept2fa: AcceptType!
-  activeSocialConfig(id: String!): ActiveSocialConfigType!
-  adaptiveLogin: AcceptAdaptiveLoginType!
-  azureLogin: StatusType!
-  changePassword(input: ChangePasswordType!): StatusType!
-  createSocialConfig(input: CreateSocialConfigDto!): SocialConfigType!
-  createUser(input: CreateUserType!): UserType!
-  deleteSocialConfig(id: String!): DeleteSocialConfigType!
-  federationCreate(input: CratedFederationInputType!): CreateFederationType!
-  federationRemove(clientId: String!): RemoveFederationType!
-  federationToggle(clientId: String!): ToggleFederationType!
-  federationUpdate(clientId: String!, input: CratedFederationInputType!): CreateFederationType!
-  forgotPassword(input: ForgotPasswordType!): StatusType!
-  generateSecret(clientId: String!): GenerateSecretType!
-  loginFederation(input: LoginType!, token: String!): StatusType!
-  loginUser(input: LoginType!): StatusType!
-  logoutUser: StatusType!
-  optionPasskey: JSON!
-  optionPasskeyVerify(data: JSON!): StatusType!
-  qrChallenge(nonce: String!): QrChallengeType!
-  qrConfirm(challenge: String!, data: JSON!): StatusType!
-  qrLogin(challenge: String!, nonce: String!): StatusType!
-  qrOption(challenge: String!, nonce: String!): JSON!
-  qrReject(challenge: String!): StatusType!
-  refreshTokenFederation(clientId: String!, secret: String!, token: String!): FederationTokenType!
-  registerOptionPasskey: JSON!
-  registerOptionPasskeyVerify(data: JSON!): StatusType!
-  reject2fa: StatusType!
-  removePasskey(id: String!): RemovePasskeyType!
-  resetPassword(input: ResetPasswordType!): StatusType!
-  updateSocialConfig(config: UpdateSocialConfigDto!, id: String!): SocialConfigType!
-  verificationToken(token: String!): StatusType!
-  verify2fa(code: String!): StatusType!
-  verify2faCode(input: Verify2faCodeType!): StatusType!
-  verifyMfa(input: VerifyCodeType!): StatusType!
-  verifyMfaFederation(code: Float!, email: String!, token: String!): StatusType!
-  verifyPasskeyFederation(data: JSON!, token: String!): StatusType!
-  verifyTfaFederation(code: String!, email: String!, token: String!): StatusType!
-  verifyTokenFederation(clientId: String!, secret: String!, token: String!): FederationTokenType!
+type ActiveSocialConfigType {
+  id: ID!
+  active: Boolean!
 }
 
 type PassKeyType {
-  createAt: String!
-  credentialID: String!
-  deviceName: String!
   id: String!
+  createAt: String!
+  deviceName: String!
+  credentialID: String!
 }
 
-enum Provider {
-  facebook
-  github
-  google
-  linkedin
-  microsoft
-  twitter
+type RemovePasskeyType {
+  status: Boolean!
 }
 
 type QrChallengeType {
@@ -187,47 +105,47 @@ type QrChallengeType {
   dataUrl: String!
 }
 
-type Query {
-  _ping: Boolean
-  discoveryFederation(clientId: String!): DiscoveryFederationType!
-  federationGet(clientId: String!): GetFederationDetailsType!
-  federationGetAll: [GetFederationType!]!
-  getAllConfig: SocialConfigsType!
-  getConfig(id: String!): SocialConfigType!
-  getPasskeys: [PassKeyType!]!
-  loginStatus: LoginStatusType!
-  verifyToken(token: String!): VerifyTokenType!
+type DiscoveryFederationType {
+  token: String!
+  clientUrl: String!
+}
+
+type FederationTokenType {
+  accessToken: String!
+  refreshToken: String!
+  email: String!
+  secret: String!
+  accessTokenExpiredIn: Float!
+  refreshTokenExpiredIn: Float!
+}
+
+type GetFederationType {
+  name: String!
+  clientId: String!
+}
+
+type GetFederationDetailsType {
+  name: String!
+  clientId: String!
+  clientUrl: String!
+  isActivated: Boolean!
+  verifyUrl: String!
+  loginUrl: String!
+}
+
+type CreateFederationType {
+  name: String!
+  clientId: String!
+  clientUrl: String!
+  isActivated: Boolean!
+}
+
+type GenerateSecretType {
+  secret: String!
 }
 
 type RemoveFederationType {
   clientId: String!
-}
-
-type RemovePasskeyType {
-  status: Boolean!
-}
-
-input ResetPasswordType {
-  password: String!
-  token: String!
-}
-
-type SocialConfigType {
-  active: Boolean!
-  callbackUrl: String
-  clientId: String!
-  id: ID!
-  name: String!
-  provider: Provider!
-  secret: String!
-}
-
-type SocialConfigsType {
-  configs: [SocialConfigType!]!
-}
-
-type StatusType {
-  status: AuthStatus!
 }
 
 type ToggleFederationType {
@@ -235,38 +153,120 @@ type ToggleFederationType {
   clientId: ID!
 }
 
-input UpdateSocialConfigDto {
-  active: Boolean
-  callbackUrl: String
-  clientId: String
-  name: String
-  provider: Provider
-  secret: String
+type Query {
+  _ping: Boolean
+  loginStatus: LoginStatusType!
+  verifyToken(token: String!): VerifyTokenType!
+  getAllConfig: SocialConfigsType!
+  getConfig(id: String!): SocialConfigType!
+  getPasskeys: [PassKeyType!]!
+  federationGetAll: [GetFederationType!]!
+  federationGet(clientId: String!): GetFederationDetailsType!
+  discoveryFederation(clientId: String!): DiscoveryFederationType!
 }
 
-type UserStatusType {
-  admin: Boolean!
-  email: String!
-  id: ID!
-  is2faEnabled: Boolean!
-  isAdaptiveLoginEnabled: Boolean!
+type Mutation {
+  createUser(input: CreateUserType!): UserType!
+  accept2fa: AcceptType!
+  reject2fa: StatusType!
+  adaptiveLogin: AcceptAdaptiveLoginType!
+  verify2fa(code: String!): StatusType!
+  verifyMfa(input: VerifyCodeType!): StatusType!
+  verify2faCode(input: Verify2faCodeType!): StatusType!
+  loginUser(input: LoginType!): StatusType!
+  logoutUser: StatusType!
+  changePassword(input: ChangePasswordType!): StatusType!
+  resetPassword(input: ResetPasswordType!): StatusType!
+  forgotPassword(input: ForgotPasswordType!): StatusType!
+  azureLogin: StatusType!
+  verificationToken(token: String!): StatusType!
+  createSocialConfig(input: CreateSocialConfigDto!): SocialConfigType!
+  updateSocialConfig(id: String!, config: UpdateSocialConfigDto!): SocialConfigType!
+  deleteSocialConfig(id: String!): DeleteSocialConfigType!
+  activeSocialConfig(id: String!): ActiveSocialConfigType!
+  removePasskey(id: String!): RemovePasskeyType!
+  optionPasskey: JSON!
+  registerOptionPasskey: JSON!
+  registerOptionPasskeyVerify(data: JSON!): StatusType!
+  optionPasskeyVerify(data: JSON!): StatusType!
+  qrChallenge(nonce: String!): QrChallengeType!
+  qrReject(challenge: String!): StatusType!
+  qrLogin(challenge: String!, nonce: String!): StatusType!
+  qrOption(challenge: String!, nonce: String!): JSON!
+  qrConfirm(challenge: String!, data: JSON!): StatusType!
+  federationCreate(input: CratedFederationInputType!): CreateFederationType!
+  generateSecret(clientId: String!): GenerateSecretType!
+  federationRemove(clientId: String!): RemoveFederationType!
+  federationToggle(clientId: String!): ToggleFederationType!
+  federationUpdate(clientId: String!, input: CratedFederationInputType!): CreateFederationType!
+  loginFederation(input: LoginType!, token: String!): StatusType!
+  verifyMfaFederation(token: String!, email: String!, code: Float!): StatusType!
+  verifyTfaFederation(token: String!, email: String!, code: String!): StatusType!
+  verifyTokenFederation(token: String!, secret: String!, clientId: String!): FederationTokenType!
+  refreshTokenFederation(token: String!, secret: String!, clientId: String!): FederationTokenType!
+  verifyPasskeyFederation(token: String!, data: JSON!): StatusType!
 }
 
-type UserType {
+input CreateUserType {
   email: String!
-  id: ID!
-}
-
-input Verify2faCodeType {
-  code: String!
-  email: String!
+  phone: String!
+  password: String!
 }
 
 input VerifyCodeType {
+  email: String!
   code: Float!
+}
+
+input Verify2faCodeType {
+  email: String!
+  code: String!
+}
+
+input LoginType {
+  email: String!
+  password: String!
+}
+
+input ChangePasswordType {
+  newPassword: String!
+  oldPassword: String!
+}
+
+input ResetPasswordType {
+  token: String!
+  password: String!
+}
+
+input ForgotPasswordType {
   email: String!
 }
 
-type VerifyTokenType {
-  verify: Boolean!
+input CreateSocialConfigDto {
+  name: String!
+  provider: Provider!
+  clientId: String!
+  secret: String!
+  callbackUrl: String
+  active: Boolean!
+}
+
+input UpdateSocialConfigDto {
+  name: String
+  provider: Provider
+  clientId: String
+  secret: String
+  callbackUrl: String
+  active: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input CratedFederationInputType {
+  name: String!
+  clientUrl: String!
+  active: Boolean!
 }

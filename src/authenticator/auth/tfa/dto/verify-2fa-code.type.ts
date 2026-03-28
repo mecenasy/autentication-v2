@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsEmail } from 'class-validator';
+import { IsEmail, IsString, IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class Verify2faCodeType {
@@ -8,5 +8,7 @@ export class Verify2faCodeType {
   email: string;
 
   @Field()
+  @IsString()
+  @IsNotEmpty()
   code: string;
 }
