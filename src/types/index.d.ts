@@ -35,6 +35,7 @@ declare namespace NodeJS {
     REDIS_PASSWORD: string;
     REDIS_PORT: string;
     REDIS_HOST: string;
+    GRPC_URL: string;
 
     TWILO_SID: string;
     TWILO_TOKEN: string;

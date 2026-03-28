@@ -5,6 +5,7 @@ export interface RedisConfig {
   redisHost: string;
   redisPort: string;
   redisUri: string;
+  grpcUrl: string;
 }
 
 export const redisConfig = registerAs(
@@ -14,5 +15,6 @@ export const redisConfig = registerAs(
     redisHost: process.env.REDIS_HOST ?? '',
     redisPort: process.env.REDIS_PORT ?? '',
     redisUri: process.env.REDIS_URL ?? '',
+    grpcUrl: process.env.GRPC_URL ?? '',
   }),
 );

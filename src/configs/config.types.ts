@@ -22,6 +22,7 @@ export const configSchema = Joi.object({
   REDIS_PASSWORD: Joi.string().required(),
   REDIS_HOST: Joi.string().required(),
   REDIS_PORT: Joi.string().required(),
+  GRPC_URL: Joi.string().required(),
   DATABASE_URL: Joi.string().required(),
   MODE: Joi.string().required(),
   SESSION_SECRET: Joi.string().required(),

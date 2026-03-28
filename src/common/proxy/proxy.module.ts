@@ -37,11 +37,11 @@ import { getGrpcOptions } from 'src/libs/utils/get-proto-files';
         name: GrpcProxyKey,
         imports: [ConfigModule],
         inject: [ConfigService],
-        useFactory: () => ({
+        useFactory: (configService: TypeConfigService) => ({
           transport: Transport.GRPC,
           options: {
             ...getGrpcOptions(join(__dirname, '../../../proto')),
-            url: 'localhost:50051',
+            url: configService.get<RedisConfig>('redis')?.grpcUrl,
             onLoadPackageDefinition: (pkg, server) => {
               // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-member-access
               new (require('@grpc/reflection').ReflectionService)(
