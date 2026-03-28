@@ -1,10 +1,11 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as PostmanConverter from 'openapi-to-postmanv2';
 import fs from 'fs';
 import { HttpService } from '@nestjs/axios';
 
 export const initSwagger = async (app: INestApplication) => {
+  const logger = new Logger('SwaggerInit');
   const config = new DocumentBuilder()
     .setTitle('authentication-v2')
     .setVersion('2.0')
@@ -21,12 +22,12 @@ export const initSwagger = async (app: INestApplication) => {
       { schemaFaker: true },
       (err, res) => {
         if (err) {
-          console.error('Converter error:', err);
+          logger.error('Converter error:', err);
           reject(new Error('Conversion fail'));
           return;
         }
         if (!res?.result) {
-          console.error('Conversion fail:', res?.reason);
+          logger.error('Conversion fail:', res?.reason);
           reject(new Error('Conversion fail'));
           return;
         }

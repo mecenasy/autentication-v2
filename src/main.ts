@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { TypeConfigService } from './configs/types.config.service';
 import { AppConfig } from './configs/app.configs';
 import { initProxy } from './libs/proxy/proxy';
@@ -9,23 +9,23 @@ import { initCorse } from './libs/corse/corse';
 import { initSwagger } from './libs/swagger/swagger';
 
 async function bootstrap() {
+  const logger = new Logger('Bootstrap');
+
   const app = await NestFactory.create(AppModule, {
     logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
 
-  // app.use(
-  //   csurf({
-  //     cookie: {
-  //       httpOnly: true,
-  //       secure: process.env.NODE_ENV === 'production',
-  //       sameSite: 'strict',
-  //     },
-  //   }),
-  // );
-
+  logger.log('Initializing proxy...');
   await initProxy(app);
+  logger.log('Proxy initialized');
+
+  logger.log('Initializing Swagger...');
   await initSwagger(app);
+  logger.log('Swagger initialized');
+
+  logger.log('Initializing session...');
   await initSession(app);
+  logger.log('Session initialized');
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -33,16 +33,20 @@ async function bootstrap() {
     }),
   );
 
+  logger.log('Initializing CORS...');
   initCorse(app);
+  logger.log('CORS initialized');
 
   const config = app.get(TypeConfigService);
   const url = config.getOrThrow<AppConfig>('app').appUrl;
 
   await app.listen(process.env.PORT || 3000, '0.0.0.0');
 
-  console.log(`Application is running on: ${url}:${process.env.PORT || 3000}`);
+  logger.log(`Application is running on: ${url}:${process.env.PORT || 3000}`);
 }
+
 bootstrap().catch((error) => {
-  console.error('Failed to start application:', error);
+  const logger = new Logger('Bootstrap');
+  logger.error('Failed to start application:', error);
   process.exit(1);
 });

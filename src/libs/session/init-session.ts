@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { RedisStore } from 'connect-redis';
 import session from 'express-session';
 import { createClient } from 'redis';
@@ -8,6 +8,7 @@ import { SessionConfig } from '../../configs/session.config';
 import { TypeConfigService } from '../../configs/types.config.service';
 
 export const initSession = async (app: INestApplication) => {
+  const logger = new Logger('SessionInit');
   const config = app.get(TypeConfigService);
   const redisUri = process.env.REDIS_URL ?? '';
 
@@ -21,7 +22,7 @@ export const initSession = async (app: INestApplication) => {
   try {
     await redisClient.connect();
   } catch (error) {
-    console.error('[redis] Błąd połączenia:', error);
+    logger.error('[redis] Błąd połączenia:', error?.stack || error);
   }
 
   app.getHttpAdapter().getInstance().set('trust proxy', 1);
@@ -47,5 +48,5 @@ export const initSession = async (app: INestApplication) => {
     }),
   );
 
-  console.log('Sesja zainicjalizowana poprawnie z Redis (redis).');
+  logger.log('Sesja zainicjalizowana poprawnie z Redis (redis).');
 };

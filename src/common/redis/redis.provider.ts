@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { createClient } from 'redis';
 import { config } from 'dotenv';
+import { Logger } from '@nestjs/common';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 config();
@@ -15,10 +16,11 @@ export const REDIS_CLIENT = Symbol('REDIS_CLIENT');
 export const redisProvider = {
   provide: REDIS_CLIENT,
   useFactory: async () => {
+    const logger = new Logger('RedisProvider');
     const redisUri = process.env.REDIS_URL?.trim();
 
     if (!redisUri) {
-      console.error(
+      logger.error(
         '❌ [RedisProvider] REDIS_URL is missing in environment variables!',
       );
       throw new Error('Environment variable REDIS_URL is not defined');
@@ -36,18 +38,18 @@ export const redisProvider = {
     });
 
     client.on('error', (err) => {
-      console.error('❌ [RedisProvider] Client Error:', err.message);
+      logger.error('❌ [RedisProvider] Client Error:', err?.message || err);
     });
 
     try {
       await client.connect();
-      console.log(
+      logger.log(
         '✅ [RedisProvider] Connected successfully to:',
         redisUri.split('@')[1],
       );
       return client;
     } catch (error) {
-      console.error('❌ [RedisProvider] Connection failed:', error.message);
+      logger.error('❌ [RedisProvider] Connection failed:', error?.message || error);
       throw error;
     }
   },
